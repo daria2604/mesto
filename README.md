@@ -9,4 +9,4 @@
 * Grid-layout для построения сетки галереи
 * JavaScript для открытия/закрытия попапа и редактирования профиля
 
-[Ссылка на GitHub Pages]()
+[Ссылка на GitHub Pages](https://daria2604.github.io/mesto/)
