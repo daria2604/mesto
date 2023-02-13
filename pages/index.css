@@ -26,10 +26,10 @@
 @import url(../blocks/profile/__about/profile__about.css);
 /* button */
 @import url(../blocks/button/button.css);
-@import url(../blocks/button/__edit/button__edit.css);
-@import url(../blocks/button/__add/button__add.css);
-@import url(../blocks/button/__like/_disabled/button__like_disabled.css);
-@import url(../blocks/button/__like/_active/button__like_active.css);
+@import url(../blocks/button/_action/button_action_add.css);
+@import url(../blocks/button/_action/button_action_edit.css);
+@import url(../blocks/button/__like/_type/button__like_type_disabled.css);
+@import url(../blocks/button/__like/_type/button__like_type_disabled.css);
 /* cards */
 @import url(../blocks/cards/cards.css);
 @import url(../blocks/card/card.css);
