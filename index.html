@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+  <link rel="stylesheet" href="pages/index.css">
+  <title>Mesto</title>
+</head>
+<body class="page">
+  <div class="popup">
+    <div class="popup__container">
+      <div class="popup__close-icon"></div>
+      <form class="popup__form">
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <div class="popup__inputs">
+          <input type="text" class="popup__input popup__input_name" value="Жак-Ив Кусто">
+          <input type="text" class="popup__input popup__input_about" value="Исследователь океана">
+        </div>
+        <button type="submit" class="popup__submit-button">Сохранить</button>
+      </form>
+    </div>
+  </div>
+  <header class="header">
+    <a href="#" class="header__link">
+      <img src="images/logo.svg" alt="Логотип" class="header__logo">
+    </a>
+  </header>
+  <main class="content">
+    <section class="profile">
+      <div class="profile__avatar"></div>
+      <div class="profile__info">
+        <div class="profile__title">
+          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <div class="button button__edit"></div>
+        </div>
+        <p class="profile__about">Исследователь океана</p>
+      </div>
+      <div class="button button__add"></div>
+    </section>
+    <section class="gallery">
+      <ul class="cards">
+        <li class="card">
+          <img src="images/elton.jpeg" alt="Озеро Эльтон" class="card__image">
+          <div class="card__info">
+            <h2 class="card__title">Эльтон</h2>
+            <div class="button button__like_disabled"></div>
+          </div>
+        </li>
+        <li class="card">
+          <img src="images/baikal.jpeg" alt="Склон у Байкала" class="card__image">
+          <div class="card__info">
+            <h2 class="card__title">Байкал</h2>
+            <div class="button button__like_disabled"></div>
+          </div>
+        </li>
+        <li class="card">
+          <img src="images/kungurskaja-peschera.jpeg" alt="Снег и лед в пещере" class="card__image">
+          <div class="card__info">
+            <h2 class="card__title">Кунгурская пещера</h2>
+            <div class="button button__like_disabled"></div>
+          </div>
+        </li>
+        <li class="card">
+          <img src="images/dombay.jpeg" alt="Лес на фоне гор" class="card__image">
+          <div class="card__info">
+            <h2 class="card__title">Домбай</h2>
+            <div class="button button__like_disabled"></div>
+          </div>
+        </li>
+        <li class="card">
+          <img src="images/dolina-gejzerov.jpg" alt="Долина гейзеров" class="card__image">
+          <div class="card__info">
+            <h2 class="card__title">Долина гейзеров</h2>
+            <div class="button button__like_disabled"></div>
+          </div>
+        </li>
+        <li class="card">
+          <img src="images/Manpupuner-rock-formations.jpeg" alt="" class="card__image">
+          <div class="card__info">
+            <h2 class="card__title">Столбы выветривания</h2>
+            <div class="button button__like_disabled"></div>
+          </div>
+        </li>
+      </ul>
+    </section>
+  </main>
+  <footer class="footer">
+    <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>

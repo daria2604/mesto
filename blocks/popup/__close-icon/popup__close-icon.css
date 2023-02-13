@@ -1,0 +1,20 @@
+.popup__close-icon {
+  background: url(../../../images/close-icon.svg) no-repeat center/100%;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  grid-column-start: 2;
+}
+
+.popup__close-icon:hover {
+  opacity: .6;
+}
+
+@media (max-width: 585px) {
+  .popup__close-icon {
+    grid-column-start: 1;
+    justify-self: end;
+    width: 20px;
+    height: 20px;
+  }
+}

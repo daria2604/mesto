@@ -1,0 +1,16 @@
+.popup__container {
+  position: fixed;
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  grid-template-rows: repeat(2, auto);
+  gap: 8px;
+  z-index: 1;
+}
+
+@media (max-width: 585px) {
+  .popup__container {
+    grid-template-columns: max-content;
+    grid-template-rows: repeat(2, max-content);
+    row-gap: 16px;
+  }
+}
