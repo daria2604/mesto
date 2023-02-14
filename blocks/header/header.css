@@ -1,7 +1,3 @@
-.header {
-  padding-bottom: 41px;
-}
-
 .header::after {
   content: "";
   width: 100%;
