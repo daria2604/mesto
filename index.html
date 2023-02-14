@@ -8,23 +8,11 @@
   <title>Mesto</title>
 </head>
 <body class="page">
-  <div class="popup">
-    <div class="popup__container">
-      <div class="popup__close-icon"></div>
-      <form class="popup__form">
-        <h2 class="popup__title">Редактировать профиль</h2>
-        <div class="popup__inputs">
-          <input type="text" class="popup__input popup__input_name" value="Жак-Ив Кусто">
-          <input type="text" class="popup__input popup__input_about" value="Исследователь океана">
-        </div>
-        <button type="submit" class="popup__submit-button">Сохранить</button>
-      </form>
-    </div>
-  </div>
   <header class="header">
     <a href="#" class="header__link">
       <img src="images/logo.svg" alt="Логотип" class="header__logo">
     </a>
+    <span class="header__line_place_bottom"></span>
   </header>
   <main class="content">
     <section class="profile">
@@ -32,11 +20,11 @@
       <div class="profile__info">
         <div class="profile__title">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <div class="button button_action_edit"></div>
+          <button class="button button_action_edit" type="button"></button>
         </div>
         <p class="profile__about">Исследователь океана</p>
       </div>
-      <div class="button button_action_add"></div>
+      <button class="button button_action_add" type="button"></button>
     </section>
     <section class="gallery">
       <ul class="cards">
@@ -44,50 +32,61 @@
           <img src="images/elton.jpeg" alt="Озеро Эльтон" class="card__image">
           <div class="card__info">
             <h2 class="card__title">Эльтон</h2>
-            <div class="button button_action_like"></div>
+            <button class="button button_action_like" type="button"></button>
           </div>
         </li>
         <li class="card">
           <img src="images/baikal.jpeg" alt="Склон у Байкала" class="card__image">
           <div class="card__info">
             <h2 class="card__title">Байкал</h2>
-            <div class="button button_action_like"></div>
+            <button class="button button_action_like" type="button"></button>
           </div>
         </li>
         <li class="card">
           <img src="images/kungurskaja-peschera.jpeg" alt="Снег и лед в пещере" class="card__image">
           <div class="card__info">
             <h2 class="card__title">Кунгурская пещера</h2>
-            <div class="button button_action_like"></div>
+            <button class="button button_action_like" type="button"></button>
           </div>
         </li>
         <li class="card">
           <img src="images/dombay.jpeg" alt="Лес на фоне гор" class="card__image">
           <div class="card__info">
             <h2 class="card__title">Домбай</h2>
-            <div class="button button_action_like"></div>
+            <button class="button button_action_like" type="button"></button>
           </div>
         </li>
         <li class="card">
           <img src="images/dolina-gejzerov.jpg" alt="Долина гейзеров" class="card__image">
           <div class="card__info">
             <h2 class="card__title">Долина гейзеров</h2>
-            <div class="button button_action_like"></div>
+            <button class="button button_action_like" type="button"></button>
           </div>
         </li>
         <li class="card">
           <img src="images/Manpupuner-rock-formations.jpeg" alt="" class="card__image">
           <div class="card__info">
             <h2 class="card__title">Столбы выветривания</h2>
-            <div class="button button_action_like"></div>
+            <button class="button button_action_like" type="button"></button>
           </div>
         </li>
       </ul>
     </section>
   </main>
   <footer class="footer">
-    <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+    <p class="footer__copyright">&copy; 2023 Mesto Russia</p>
   </footer>
-  <script src="script.js"></script>
+  <div class="popup">
+    <div class="popup__container">
+      <button class="button button_action_close"></button>
+      <form class="popup__form" name="editForm">
+        <h3 class="popup__title">Редактировать профиль</h3>
+        <input type="text" placeholder="Имя" class="popup__input popup__input_type_name" name="name" value="Жак-Ив Кусто">
+        <input type="text" placeholder="О себе" class="popup__input popup__input_type_about" name="about" value="Исследователь океана">
+        <button type="submit" class="popup__submit-button">Сохранить</button>
+      </form>
+    </div>
+  </div>
+  <script src="scripts/script.js"></script>
 </body>
 </html>

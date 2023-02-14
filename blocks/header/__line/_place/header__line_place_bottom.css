@@ -1,0 +1,12 @@
+.header__line_place_bottom {
+  display: block;
+  border-bottom: 1px solid #545454;
+  opacity: .7;
+  margin-top: 41px;
+}
+
+@media (max-width: 585px) {
+  .header__line_place_bottom {
+    margin-top: 32px;
+  }
+}

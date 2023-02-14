@@ -1,11 +1,13 @@
 let popup = document.querySelector('.popup');
 let editButton = document.querySelector('.button_action_edit');
-let closeButton = document.querySelector('.popup__close-icon');
+let closeButton = document.querySelector('.button_action_close');
 
-let editForm = popup.querySelector('.popup__form');
-let nameInput = editForm.querySelector('.popup__input_name');
-let aboutInput = editForm.querySelector('.popup__input_about');
-let saveButton = editForm.querySelector('.popup__submit-button');
+let editForm = document.forms['editForm'];
+let nameInput = editForm.querySelector('.popup__input_type_name');
+let aboutInput = editForm.querySelector('.popup__input_type_about');
+
+let profileName = document.querySelector('.profile__name');
+let profileAbout = document.querySelector('.profile__about');
 
 function popupOpen() {
   popup.setAttribute('disabled', true);
@@ -27,12 +29,10 @@ function handlerFormSubmit (evt) {
   nameInput.getAttribute('value');
   aboutInput.getAttribute('value');
 
-  let profileName = document.querySelector('.profile__name');
-  let profileAbout = document.querySelector('.profile__about');
-
   profileName.textContent = nameInput.value;
   profileAbout.textContent = aboutInput.value;
+
+  popupClose();
 }
 
 editForm.addEventListener('submit', handlerFormSubmit);
-saveButton.addEventListener('click', popupClose);

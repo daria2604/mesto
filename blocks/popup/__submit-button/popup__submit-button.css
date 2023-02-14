@@ -6,6 +6,7 @@
   padding: 14px 131px 14px 132px;
   cursor: pointer;
   font-size: 18px;
+  transition: all .4s ease .2s;
 }
 
 .popup__submit-button:hover {

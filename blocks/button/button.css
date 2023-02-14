@@ -1,5 +1,7 @@
 .button {
   cursor: pointer;
+  border: none;
+  transition: all .4s ease .2s;
 }
 
 .button:hover {
