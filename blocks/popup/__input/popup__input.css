@@ -4,7 +4,7 @@
   line-height: 1.1;
   border: none;
   border-bottom: 1px solid #D3D3D3;
-  padding: 5px 0 10px 0;
+  padding-bottom: 10px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -22,7 +22,7 @@
 
 @media (max-width: 585px) {
   .popup__input:first-of-type {
-    margin-top: 75px;
+    margin-top: 79px;
   }
 
   .popup__input:last-of-type {

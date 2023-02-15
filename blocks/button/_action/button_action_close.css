@@ -15,5 +15,7 @@
   .button_action_close {
     grid-column-start: 1;
     justify-self: end;
+    width: 20px;
+    height: 20px;
   }
 }
