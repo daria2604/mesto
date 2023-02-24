@@ -26,56 +26,17 @@
       <button class="button button_action_add" type="button"></button>
     </section>
     <section class="gallery">
-      <ul class="cards">
-        <li class="card">
-          <button class="button button_action_delete" type="button"></button>
-          <img src="images/elton.jpeg" alt="Озеро Эльтон" class="card__image">
-          <div class="card__info">
-            <h2 class="card__title">Эльтон</h2>
-            <button class="button button_action_like" type="button"></button>
-          </div>
-        </li>
-        <li class="card">
-          <button class="button button_action_delete" type="button"></button>
-          <img src="images/baikal.jpeg" alt="Склон у Байкала" class="card__image">
-          <div class="card__info">
-            <h2 class="card__title">Байкал</h2>
-            <button class="button button_action_like" type="button"></button>
-          </div>
-        </li>
-        <li class="card">
-          <button class="button button_action_delete" type="button"></button>
-          <img src="images/kungurskaja-peschera.jpeg" alt="Снег и лед в пещере" class="card__image">
-          <div class="card__info">
-            <h2 class="card__title">Кунгурская пещера</h2>
-            <button class="button button_action_like" type="button"></button>
-          </div>
-        </li>
-        <li class="card">
-          <button class="button button_action_delete" type="button"></button>
-          <img src="images/dombay.jpeg" alt="Лес на фоне гор" class="card__image">
-          <div class="card__info">
-            <h2 class="card__title">Домбай</h2>
-            <button class="button button_action_like" type="button"></button>
-          </div>
-        </li>
-        <li class="card">
-          <button class="button button_action_delete" type="button"></button>
-          <img src="images/dolina-gejzerov.jpg" alt="Долина гейзеров" class="card__image">
-          <div class="card__info">
-            <h2 class="card__title">Долина гейзеров</h2>
-            <button class="button button_action_like" type="button"></button>
-          </div>
-        </li>
-        <li class="card">
-          <button class="button button_action_delete" type="button"></button>
-          <img src="images/Manpupuner-rock-formations.jpeg" alt="" class="card__image">
-          <div class="card__info">
-            <h2 class="card__title">Столбы выветривания</h2>
-            <button class="button button_action_like" type="button"></button>
-          </div>
-        </li>
-      </ul>
+      <div class="cards">
+        <template id="cardTemplate">
+          <div class="card">
+            <button class="button button_action_delete" type="button"></button>
+            <img class="card__image">
+            <div class="card__info">
+              <h2 class="card__title"></h2>
+              <button class="button button_action_like" type="button"></button>
+            </div>
+        </template>
+      </div>
     </section>
   </main>
   <footer class="footer">
@@ -92,6 +53,17 @@
       </form>
     </div>
   </div>
+  <!-- <div class="popup">
+    <div class="popup__container">
+      <button class="button button_action_close" type="button"></button>
+      <form class="popup__form" name="editForm">
+        <h3 class="popup__title">Новое место</h3>
+        <input type="text" placeholder="Название" class="popup__input popup__input_type_title" name="title" value="">
+        <input type="text" placeholder="Ссылка на картинку" class="popup__input popup__input_type_link" name="link" value="">
+        <button type="submit" class="popup__submit-button">Создать</button>
+      </form>
+    </div>
+  </div> -->
   <script src="scripts/script.js"></script>
 </body>
 </html>

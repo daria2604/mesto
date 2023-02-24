@@ -1,13 +1,65 @@
-let popup = document.querySelector('.popup');
-let editButton = document.querySelector('.button_action_edit');
-let closeButton = document.querySelector('.button_action_close');
+const popup = document.querySelector('.popup');
+const cards = document.querySelector('.cards');
 
-let editForm = document.forms['editForm'];
-let nameInput = editForm.querySelector('.popup__input_type_name');
-let aboutInput = editForm.querySelector('.popup__input_type_about');
+const editButton = document.querySelector('.button_action_edit');
+const closeButton = document.querySelector('.button_action_close');
+const addButton = document.querySelector('.button_action_add');
+const likeButton = document.querySelector('.button_action_like');
 
-let profileName = document.querySelector('.profile__name');
-let profileAbout = document.querySelector('.profile__about');
+const editForm = document.forms['editForm'];
+const nameInput = editForm.querySelector('.popup__input_type_name');
+const aboutInput = editForm.querySelector('.popup__input_type_about');
+
+const profileName = document.querySelector('.profile__name');
+const profileAbout = document.querySelector('.profile__about');
+
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
+
+function createCard(card) {
+  const newCard = document.querySelector('#cardTemplate').content.cloneNode(true);
+  const cardTitle = newCard.querySelector('.card__title');
+  cardTitle.textContent = card.name;
+
+  const cardImage = newCard.querySelector('.card__image');
+  cardImage.setAttribute('src', card.link);
+
+  const deleteButton = newCard.querySelector('.button_action_delete');
+  deleteButton.addEventListener('click', handleDeleteButton);
+
+  cards.append(newCard);
+}
+initialCards.forEach(createCard);
+
+function handleDeleteButton(evt) {
+  const button = evt.target;
+  const card = button.closest('.card');
+  card.remove();
+}
 
 function popupOpen() {
   popup.setAttribute('disabled', true);
@@ -36,3 +88,7 @@ function handlerFormSubmit (evt) {
 }
 
 editForm.addEventListener('submit', handlerFormSubmit);
+
+likeButton.addEventListener('click', function(evt) {
+  evt.target.classList.toggle('button_action_like_type_active');
+});
