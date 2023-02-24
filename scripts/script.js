@@ -4,7 +4,6 @@ const cards = document.querySelector('.cards');
 const editButton = document.querySelector('.button_action_edit');
 const closeButton = document.querySelector('.button_action_close');
 const addButton = document.querySelector('.button_action_add');
-const likeButton = document.querySelector('.button_action_like');
 
 const editForm = document.forms['editForm'];
 const nameInput = editForm.querySelector('.popup__input_type_name');
@@ -40,27 +39,6 @@ const initialCards = [
   }
 ];
 
-function createCard(card) {
-  const newCard = document.querySelector('#cardTemplate').content.cloneNode(true);
-  const cardTitle = newCard.querySelector('.card__title');
-  cardTitle.textContent = card.name;
-
-  const cardImage = newCard.querySelector('.card__image');
-  cardImage.setAttribute('src', card.link);
-
-  const deleteButton = newCard.querySelector('.button_action_delete');
-  deleteButton.addEventListener('click', handleDeleteButton);
-
-  cards.append(newCard);
-}
-initialCards.forEach(createCard);
-
-function handleDeleteButton(evt) {
-  const button = evt.target;
-  const card = button.closest('.card');
-  card.remove();
-}
-
 function popupOpen() {
   popup.setAttribute('disabled', true);
   popup.classList.add('popup_opened');
@@ -89,6 +67,28 @@ function handlerFormSubmit (evt) {
 
 editForm.addEventListener('submit', handlerFormSubmit);
 
-likeButton.addEventListener('click', function(evt) {
-  evt.target.classList.toggle('button_action_like_type_active');
-});
+function createCard(card) {
+  const newCard = document.querySelector('#cardTemplate').content.cloneNode(true);
+  const cardTitle = newCard.querySelector('.card__title');
+  cardTitle.textContent = card.name;
+
+  const cardImage = newCard.querySelector('.card__image');
+  cardImage.setAttribute('src', card.link);
+
+  const deleteButton = newCard.querySelector('.button_action_delete');
+  deleteButton.addEventListener('click', handleDeleteButton);
+
+  const likeButton = newCard.querySelector('.button_action_like');
+  likeButton.addEventListener('click', function(evt) {
+    evt.target.classList.toggle('button_action_like_type_active');
+  });
+
+  cards.append(newCard);
+}
+initialCards.forEach(createCard);
+
+function handleDeleteButton(evt) {
+  const button = evt.target;
+  const card = button.closest('.card');
+  card.remove();
+}
