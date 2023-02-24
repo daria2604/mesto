@@ -29,6 +29,7 @@
 @import url(../blocks/button/_action/button_action_like.css);
 @import url(../blocks/button/_action/button_action_like_type_active.css);
 @import url(../blocks/button/_action/button_action_close.css);
+@import url(../blocks/button/_action/button_action_delete.css);
 /* cards */
 @import url(../blocks/cards/cards.css);
 @import url(../blocks/card/card.css);
