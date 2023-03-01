@@ -4,6 +4,11 @@ const cards = document.querySelector('.cards');
 const profileName = document.querySelector('.profile__name');
 const profileAbout = document.querySelector('.profile__about');
 
+const imagePopup = document.querySelector('.popup_type_image')
+const popupImage = imagePopup.querySelector('.popup__image')
+const popupCaption = imagePopup.querySelector('.popup__caption')
+const closeImagePopupButton = imagePopup.querySelector('.button_action_close')
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -42,11 +47,11 @@ function popupClose(popup) {
 
 function createCard(card) {
   const newCard = document.querySelector('#cardTemplate').content.cloneNode(true);
-  const cardTitle = newCard.querySelector('.card__title');
-  cardTitle.textContent = card.name;
+  const title = newCard.querySelector('.card__title');
+  title.textContent = card.name;
 
-  const cardImage = newCard.querySelector('.card__image');
-  cardImage.setAttribute('src', card.link);
+  const image = newCard.querySelector('.card__image');
+  image.setAttribute('src', card.link);
 
   const deleteButton = newCard.querySelector('.button_action_delete');
   deleteButton.addEventListener('click', handleDeleteButton);
@@ -55,6 +60,14 @@ function createCard(card) {
   likeButton.addEventListener('click', function(evt) {
     evt.target.classList.toggle('button_action_like_type_active');
   });
+
+  image.addEventListener('click', () => {
+    popupOpen(imagePopup)
+  })
+
+  closeImagePopupButton.addEventListener('click', () => {
+    popupClose(imagePopup)
+  })
 
   cards.prepend(newCard);
 }
@@ -75,11 +88,9 @@ const editForm = document.forms['editForm']
 const inputName = editForm.querySelector('.popup__input_type_name')
 const inputAbout = editForm.querySelector('.popup__input_type_about')
 
-function handleOpenEditBtn() {
+editButton.addEventListener('click', () => {
   popupOpen(editPopup)
-}
-
-editButton.addEventListener('click', handleOpenEditBtn)
+})
 
 closeEditPopupButton.addEventListener('click', () => {
   popupClose(editPopup)
@@ -89,7 +100,7 @@ editForm.addEventListener('submit', handlerFormSubmit);
 
 function handlerFormSubmit(evt) {
   evt.preventDefault();
-  const editForm = evt.target;
+  const form = evt.target;
   profileName.textContent = inputName.value;
   profileAbout.textContent = inputAbout.value;
 
@@ -101,9 +112,9 @@ function handlerFormSubmit(evt) {
 const addPopup = document.querySelector('.popup_type_add')
 const addButton = document.querySelector('.button_action_add')
 const closeAddPopupButton = addPopup.querySelector('.button_action_close')
-const addForm = document.forms['addFrom']
-const inputTitle = editForm.querySelector('.popup__input_type_title')
-const inputLink = editForm.querySelector('.popup__input_type_link')
+const addForm = document.forms['addForm']
+const inputTitle = addForm.querySelector('.popup__input_type_title')
+const inputLink = addForm.querySelector('.popup__input_type_link')
 
 addButton.addEventListener('click', () => {
   popupOpen(addPopup)
@@ -112,3 +123,20 @@ addButton.addEventListener('click', () => {
 closeAddPopupButton.addEventListener('click', () => {
   popupClose(addPopup)
 })
+
+addForm.addEventListener('submit', handleAddCardButton)
+
+function handleAddCardButton(evt) {
+  evt.preventDefault()
+  const add = evt.target
+  const title = document.querySelector('.card__title')
+  title.textContent = inputTitle.value
+  const image = document.querySelector('.card__image')
+  image.setAttribute('src', inputLink.value)
+
+  const card = { image, title }
+
+  createCard(card)
+  popupClose(addPopup)
+}
+
