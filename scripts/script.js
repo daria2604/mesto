@@ -1,14 +1,6 @@
 const popup = document.querySelector('.popup');
 const cards = document.querySelector('.cards');
 
-const editButton = document.querySelector('.button_action_edit');
-const closeButton = document.querySelector('.button_action_close');
-const addButton = document.querySelector('.button_action_add');
-
-const editForm = document.forms['editForm'];
-const nameInput = editForm.querySelector('.popup__input_type_name');
-const aboutInput = editForm.querySelector('.popup__input_type_about');
-
 const profileName = document.querySelector('.profile__name');
 const profileAbout = document.querySelector('.profile__about');
 
@@ -39,33 +31,14 @@ const initialCards = [
   }
 ];
 
-function popupOpen() {
-  popup.setAttribute('disabled', true);
-  popup.classList.add('popup_opened');
+
+function popupOpen(popup) {
+    popup.classList.add('popup_opened')
 }
 
-editButton.addEventListener('click', popupOpen);
-
-function popupClose() {
-  popup.removeAttribute('disabled', true);
-  popup.classList.remove('popup_opened');
+function popupClose(popup) {
+    popup.classList.remove('popup_opened')
 }
-
-closeButton.addEventListener('click', popupClose);
-
-function handlerFormSubmit (evt) {
-  evt.preventDefault();
-
-  nameInput.getAttribute('value');
-  aboutInput.getAttribute('value');
-
-  profileName.textContent = nameInput.value;
-  profileAbout.textContent = aboutInput.value;
-
-  popupClose();
-}
-
-editForm.addEventListener('submit', handlerFormSubmit);
 
 function createCard(card) {
   const newCard = document.querySelector('#cardTemplate').content.cloneNode(true);
@@ -83,8 +56,9 @@ function createCard(card) {
     evt.target.classList.toggle('button_action_like_type_active');
   });
 
-  cards.append(newCard);
+  cards.prepend(newCard);
 }
+
 initialCards.forEach(createCard);
 
 function handleDeleteButton(evt) {
@@ -92,3 +66,49 @@ function handleDeleteButton(evt) {
   const card = button.closest('.card');
   card.remove();
 }
+
+// EDIT POPUP
+const editPopup = document.querySelector('.popup_type_edit')
+const editButton = document.querySelector('.button_action_edit')
+const closeEditPopupButton = editPopup.querySelector('.button_action_close')
+const editForm = document.forms['editForm']
+const inputName = editForm.querySelector('.popup__input_type_name')
+const inputAbout = editForm.querySelector('.popup__input_type_about')
+
+function handleOpenEditBtn() {
+  popupOpen(editPopup)
+}
+
+editButton.addEventListener('click', handleOpenEditBtn)
+
+closeEditPopupButton.addEventListener('click', () => {
+  popupClose(editPopup)
+} )
+
+editForm.addEventListener('submit', handlerFormSubmit);
+
+function handlerFormSubmit(evt) {
+  evt.preventDefault();
+  const editForm = evt.target;
+  profileName.textContent = inputName.value;
+  profileAbout.textContent = inputAbout.value;
+
+  popupClose(popup);
+}
+
+
+// ADD POPUP
+const addPopup = document.querySelector('.popup_type_add')
+const addButton = document.querySelector('.button_action_add')
+const closeAddPopupButton = addPopup.querySelector('.button_action_close')
+const addForm = document.forms['addFrom']
+const inputTitle = editForm.querySelector('.popup__input_type_title')
+const inputLink = editForm.querySelector('.popup__input_type_link')
+
+addButton.addEventListener('click', () => {
+  popupOpen(addPopup)
+})
+
+closeAddPopupButton.addEventListener('click', () => {
+  popupClose(addPopup)
+})
