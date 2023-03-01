@@ -1,8 +1,23 @@
 const popup = document.querySelector('.popup')
 const cards = document.querySelector('.cards')
+const input = document.querySelector('.popup__input')
 
 const profileName = document.querySelector('.profile__name')
 const profileAbout = document.querySelector('.profile__about')
+
+const editPopup = document.querySelector('.popup_type_edit')
+const editButton = document.querySelector('.button_action_edit')
+const closeEditPopupButton = editPopup.querySelector('.button_action_close')
+const editForm = document.forms['editForm']
+const inputName = editForm.querySelector('.popup__input_type_name')
+const inputAbout = editForm.querySelector('.popup__input_type_about')
+
+const addPopup = document.querySelector('.popup_type_add')
+const addButton = document.querySelector('.button_action_add')
+const closeAddPopupButton = addPopup.querySelector('.button_action_close')
+const addForm = document.forms['addForm']
+const inputTitle = addForm.querySelector('.popup__input_type_title')
+const inputLink = addForm.querySelector('.popup__input_type_link')
 
 const imagePopup = document.querySelector('.popup_type_image')
 const popupImage = imagePopup.querySelector('.popup__image')
@@ -41,7 +56,7 @@ function popupOpen(popup) {
 }
 
 function popupClose(popup) {
-    popup.classList.remove('popup_opened')
+  popup.classList.remove('popup_opened')
 }
 
 function createCard(card) {
@@ -61,9 +76,15 @@ function createCard(card) {
     evt.target.classList.toggle('button_action_like_type_active')
   })
 
-  image.addEventListener('click', () => {
+  image.addEventListener('click', showFullImage)
+
+  function showFullImage(evt) {
+    const image = evt.target
+    popupImage.setAttribute('src', `${card.link}`)
+    popupCaption.textContent = card.name
+
     popupOpen(imagePopup)
-  })
+  }
 
   closeImagePopupButton.addEventListener('click', () => {
     popupClose(imagePopup)
@@ -81,15 +102,11 @@ function handleDeleteButton(evt) {
 }
 
 // EDIT POPUP
-const editPopup = document.querySelector('.popup_type_edit')
-const editButton = document.querySelector('.button_action_edit')
-const closeEditPopupButton = editPopup.querySelector('.button_action_close')
-const editForm = document.forms['editForm']
-const inputName = editForm.querySelector('.popup__input_type_name')
-const inputAbout = editForm.querySelector('.popup__input_type_about')
 
 editButton.addEventListener('click', () => {
   popupOpen(editPopup)
+  inputName.value = profileName.textContent
+  inputAbout.value = profileAbout.textContent
 })
 
 closeEditPopupButton.addEventListener('click', () => {
@@ -100,6 +117,8 @@ editForm.addEventListener('submit', handlerFormSubmit);
 
 function handlerFormSubmit(evt) {
   evt.preventDefault()
+  const form = evt.target
+
   profileName.textContent = inputName.value
   profileAbout.textContent = inputAbout.value
 
@@ -108,12 +127,6 @@ function handlerFormSubmit(evt) {
 
 
 // ADD POPUP
-const addPopup = document.querySelector('.popup_type_add')
-const addButton = document.querySelector('.button_action_add')
-const closeAddPopupButton = addPopup.querySelector('.button_action_close')
-const addForm = document.forms['addForm']
-const inputTitle = addForm.querySelector('.popup__input_type_title')
-const inputLink = addForm.querySelector('.popup__input_type_link')
 
 addButton.addEventListener('click', () => {
   popupOpen(addPopup)
@@ -127,7 +140,7 @@ addForm.addEventListener('submit', handleAddCardButton)
 
 function handleAddCardButton(evt) {
   evt.preventDefault()
-  const form = evt.traget
+  const form = evt.target
   const link = inputLink.value
   const name = inputTitle.value
 
@@ -135,4 +148,5 @@ function handleAddCardButton(evt) {
 
   createCard(newCard)
   popupClose(addPopup)
+  form.reset(addForm)
 }

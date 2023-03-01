@@ -47,8 +47,8 @@
       <button class="button button_action_close" type="button"></button>
       <form class="popup__form popup__form_type_edit" name="editForm"  autocomplete="off">
         <h3 class="popup__heading popup__heading_type_edit">Редактировать профиль</h3>
-        <input type="text" placeholder="Имя" class="popup__input popup__input_type_name" name="name" value="Жак-Ив Кусто">
-        <input type="text" placeholder="О себе" class="popup__input popup__input_type_about" name="about" value="Исследователь океана">
+        <input type="text" placeholder="Имя" class="popup__input popup__input_type_name" name="name" value="">
+        <input type="text" placeholder="О себе" class="popup__input popup__input_type_about" name="about" value="">
         <button type="submit" class="popup__submit-button popup__submit-button_type_edit">Сохранить</button>
       </form>
     </div>
@@ -67,8 +67,10 @@
   <div class="popup popup_type_image">
     <div class="popup__container">
       <button class="button button_action_close" type="button"></button>
-      <img class="popup__image"></img>
-      <p class="popup__caption"></p>
+      <div class="popup__wrap">
+        <img class="popup__image"></img>
+        <p class="popup__caption"></p>
+      </div>
     </div>
   </div>
   <script src="scripts/script.js"></script>
