@@ -1,8 +1,8 @@
-const popup = document.querySelector('.popup');
-const cards = document.querySelector('.cards');
+const popup = document.querySelector('.popup')
+const cards = document.querySelector('.cards')
 
-const profileName = document.querySelector('.profile__name');
-const profileAbout = document.querySelector('.profile__about');
+const profileName = document.querySelector('.profile__name')
+const profileAbout = document.querySelector('.profile__about')
 
 const imagePopup = document.querySelector('.popup_type_image')
 const popupImage = imagePopup.querySelector('.popup__image')
@@ -12,7 +12,7 @@ const closeImagePopupButton = imagePopup.querySelector('.button_action_close')
 const initialCards = [
   {
     name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
   },
   {
     name: 'Челябинская область',
@@ -36,7 +36,6 @@ const initialCards = [
   }
 ];
 
-
 function popupOpen(popup) {
     popup.classList.add('popup_opened')
 }
@@ -46,20 +45,21 @@ function popupClose(popup) {
 }
 
 function createCard(card) {
-  const newCard = document.querySelector('#cardTemplate').content.cloneNode(true);
-  const title = newCard.querySelector('.card__title');
-  title.textContent = card.name;
+  const cardTemplate = document.querySelector('#cardTemplate').content.cloneNode(true)
+  const title = cardTemplate.querySelector('.card__title')
+  title.textContent = card.name
 
-  const image = newCard.querySelector('.card__image');
-  image.setAttribute('src', card.link);
+  const image = cardTemplate.querySelector('.card__image')
+  image.setAttribute('src', card.link)
+  image.setAttribute('alt', `Фотография ${card.name}`)
 
-  const deleteButton = newCard.querySelector('.button_action_delete');
-  deleteButton.addEventListener('click', handleDeleteButton);
+  const deleteButton = cardTemplate.querySelector('.button_action_delete')
+  deleteButton.addEventListener('click', handleDeleteButton)
 
-  const likeButton = newCard.querySelector('.button_action_like');
+  const likeButton = cardTemplate.querySelector('.button_action_like')
   likeButton.addEventListener('click', function(evt) {
-    evt.target.classList.toggle('button_action_like_type_active');
-  });
+    evt.target.classList.toggle('button_action_like_type_active')
+  })
 
   image.addEventListener('click', () => {
     popupOpen(imagePopup)
@@ -69,10 +69,10 @@ function createCard(card) {
     popupClose(imagePopup)
   })
 
-  cards.prepend(newCard);
+  cards.prepend(cardTemplate)
 }
 
-initialCards.forEach(createCard);
+initialCards.forEach(createCard)
 
 function handleDeleteButton(evt) {
   const button = evt.target;
@@ -99,12 +99,11 @@ closeEditPopupButton.addEventListener('click', () => {
 editForm.addEventListener('submit', handlerFormSubmit);
 
 function handlerFormSubmit(evt) {
-  evt.preventDefault();
-  const form = evt.target;
-  profileName.textContent = inputName.value;
-  profileAbout.textContent = inputAbout.value;
+  evt.preventDefault()
+  profileName.textContent = inputName.value
+  profileAbout.textContent = inputAbout.value
 
-  popupClose(popup);
+  popupClose(popup)
 }
 
 
@@ -128,15 +127,12 @@ addForm.addEventListener('submit', handleAddCardButton)
 
 function handleAddCardButton(evt) {
   evt.preventDefault()
-  const add = evt.target
-  const title = document.querySelector('.card__title')
-  title.textContent = inputTitle.value
-  const image = document.querySelector('.card__image')
-  image.setAttribute('src', inputLink.value)
+  const form = evt.traget
+  const link = inputLink.value
+  const name = inputTitle.value
 
-  const card = { image, title }
+  const newCard = { name, link }
 
-  createCard(card)
+  createCard(newCard)
   popupClose(addPopup)
 }
-
