@@ -1,6 +1,5 @@
 const popup = document.querySelector('.popup')
 const cardsContainer = document.querySelector('.cards')
-const input = document.querySelector('.popup__input')
 
 const profileName = document.querySelector('.profile__name')
 const profileAbout = document.querySelector('.profile__about')
@@ -79,7 +78,6 @@ function createCard(card) {
   image.addEventListener('click', showFullImage)
 
   function showFullImage(evt) {
-    const image = evt.target
     popupImage.setAttribute('src', `${card.link}`)
     popupImage.setAttribute('alt', `Фотография ${card.name}`)
     popupCaption.textContent = card.name
@@ -118,8 +116,6 @@ editForm.addEventListener('submit', handlerEditFormSubmit);
 
 function handlerEditFormSubmit(evt) {
   evt.preventDefault()
-  const form = evt.target
-
   profileName.textContent = inputName.value
   profileAbout.textContent = inputAbout.value
 
@@ -141,7 +137,6 @@ addForm.addEventListener('submit', handlerAddCardFormSubmit)
 
 function handlerAddCardFormSubmit(evt) {
   evt.preventDefault()
-  const form = evt.target
   const link = inputLink.value
   const name = inputTitle.value
 
@@ -149,5 +144,5 @@ function handlerAddCardFormSubmit(evt) {
 
   createCard(newCard)
   popupClose(addPopup)
-  form.reset(addForm)
+  addForm.reset()
 }
