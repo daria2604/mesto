@@ -68,16 +68,16 @@ function createCard(card) {
   image.setAttribute('alt', `Фотография ${card.name}`)
 
   const deleteButton = cardTemplate.querySelector('.button_action_delete')
-  deleteButton.addEventListener('click', handleDeleteButton)
+  deleteButton.addEventListener('click', handlerDeleteButton)
 
   const likeButton = cardTemplate.querySelector('.button_action_like')
   likeButton.addEventListener('click', function(evt) {
-    evt.target.classList.toggle('button_action_like_type_active')
+    evt.target.classList.toggle('button_action_like_active')
   })
 
   image.addEventListener('click', showFullImage)
 
-  function showFullImage(evt) {
+  function showFullImage() {
     popupImage.setAttribute('src', `${card.link}`)
     popupImage.setAttribute('alt', `Фотография ${card.name}`)
     popupCaption.textContent = card.name
@@ -94,7 +94,7 @@ function createCard(card) {
 
 initialCards.forEach(createCard)
 
-function handleDeleteButton(evt) {
+function handlerDeleteButton(evt) {
   const button = evt.target;
   const card = button.closest('.card');
   card.remove();
