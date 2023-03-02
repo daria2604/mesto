@@ -81,6 +81,7 @@ function createCard(card) {
   function showFullImage(evt) {
     const image = evt.target
     popupImage.setAttribute('src', `${card.link}`)
+    popupImage.setAttribute('alt', `Фотография ${card.name}`)
     popupCaption.textContent = card.name
 
     popupOpen(imagePopup)
