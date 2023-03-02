@@ -1,5 +1,5 @@
 const popup = document.querySelector('.popup')
-const cards = document.querySelector('.cards')
+const cardsContainer = document.querySelector('.cards')
 const input = document.querySelector('.popup__input')
 
 const profileName = document.querySelector('.profile__name')
@@ -91,7 +91,7 @@ function createCard(card) {
     popupClose(imagePopup)
   })
 
-  cards.prepend(cardTemplate)
+  cardsContainer.prepend(cardTemplate)
 }
 
 initialCards.forEach(createCard)
@@ -114,9 +114,9 @@ closeEditPopupButton.addEventListener('click', () => {
   popupClose(editPopup)
 } )
 
-editForm.addEventListener('submit', handlerFormSubmit);
+editForm.addEventListener('submit', handlerEditFormSubmit);
 
-function handlerFormSubmit(evt) {
+function handlerEditFormSubmit(evt) {
   evt.preventDefault()
   const form = evt.target
 
@@ -137,9 +137,9 @@ closeAddPopupButton.addEventListener('click', () => {
   popupClose(addPopup)
 })
 
-addForm.addEventListener('submit', handleAddCardButton)
+addForm.addEventListener('submit', handlerAddCardFormSubmit)
 
-function handleAddCardButton(evt) {
+function handlerAddCardFormSubmit(evt) {
   evt.preventDefault()
   const form = evt.target
   const link = inputLink.value
