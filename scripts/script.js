@@ -71,9 +71,7 @@ function createCard(card) {
   deleteButton.addEventListener('click', handlerDeleteButton)
 
   const likeButton = cardTemplate.querySelector('.button_action_like')
-  likeButton.addEventListener('click', function(evt) {
-    evt.target.classList.toggle('button_action_like_active')
-  })
+  likeButton.addEventListener('click', handlerLikeButton)
 
   image.addEventListener('click', showFullImage)
 
@@ -85,11 +83,17 @@ function createCard(card) {
     popupOpen(imagePopup)
   }
 
-  closeImagePopupButton.addEventListener('click', () => {
-    popupClose(imagePopup)
-  })
+  closeImagePopupButton.addEventListener('click', closeImagePopup)
 
   cardsContainer.prepend(cardTemplate)
+}
+
+function closeImagePopup() {
+  popupClose(imagePopup)
+}
+
+function handlerLikeButton(evt) {
+  evt.target.classList.toggle('button_action_like_active')
 }
 
 initialCards.forEach(createCard)
