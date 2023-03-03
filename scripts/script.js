@@ -1,5 +1,5 @@
-const popup = document.querySelector('.popup')
 const cardsContainer = document.querySelector('.cards')
+const cardTemplate = document.querySelector('#cardTemplate').content
 
 const profileName = document.querySelector('.profile__name')
 const profileAbout = document.querySelector('.profile__about')
@@ -59,18 +59,18 @@ function popupClose(popup) {
 }
 
 function createCard(card) {
-  const cardTemplate = document.querySelector('#cardTemplate').content.cloneNode(true)
-  const title = cardTemplate.querySelector('.card__title')
+  const blankCard = cardTemplate.querySelector('.card').cloneNode(true)
+  const title = blankCard.querySelector('.card__title')
   title.textContent = card.name
 
-  const image = cardTemplate.querySelector('.card__image')
+  const image = blankCard.querySelector('.card__image')
   image.setAttribute('src', card.link)
   image.setAttribute('alt', `Фотография ${card.name}`)
 
-  const deleteButton = cardTemplate.querySelector('.button_action_delete')
+  const deleteButton = blankCard.querySelector('.button_action_delete')
   deleteButton.addEventListener('click', handlerDeleteButton)
 
-  const likeButton = cardTemplate.querySelector('.button_action_like')
+  const likeButton = blankCard.querySelector('.button_action_like')
   likeButton.addEventListener('click', handlerLikeButton)
 
   image.addEventListener('click', showFullImage)
@@ -85,8 +85,9 @@ function createCard(card) {
 
   closeImagePopupButton.addEventListener('click', closeImagePopup)
 
-  cardsContainer.prepend(cardTemplate)
+  cardsContainer.prepend(blankCard)
 }
+
 
 function closeImagePopup() {
   popupClose(imagePopup)
@@ -123,7 +124,7 @@ function handlerEditFormSubmit(evt) {
   profileName.textContent = inputName.value
   profileAbout.textContent = inputAbout.value
 
-  popupClose(popup)
+  popupClose(editPopup)
 }
 
 
@@ -144,9 +145,9 @@ function handlerAddCardFormSubmit(evt) {
   const link = inputLink.value
   const name = inputTitle.value
 
-  const newCard = { name, link }
+  const card = { name, link }
 
-  createCard(newCard)
+  createCard(card)
   popupClose(addPopup)
   addForm.reset()
 }
