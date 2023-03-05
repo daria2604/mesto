@@ -23,6 +23,6 @@
   z-index: 1;
 }
 
-.popup:nth-of-type(3)::before {
+.popup ~ .popup_type_image::before {
   opacity: 0.9;
 }
