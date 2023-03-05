@@ -19,6 +19,8 @@ const inputTitle = addForm.querySelector('.popup__input_type_title')
 const inputLink = addForm.querySelector('.popup__input_type_link')
 
 const imagePopup = document.querySelector('.popup_type_image')
+const popupImage = imagePopup.querySelector('.popup__image')
+const popupCaption = imagePopup.querySelector('.popup__caption')
 const closeImagePopupButton = imagePopup.querySelector('.button_action_close')
 
 const initialCards = [
@@ -73,8 +75,6 @@ function createCard(card) {
 
   cardImage.addEventListener('click', openFullImage)
 
-  closeImagePopupButton.addEventListener('click', closeImagePopup)
-
   return blankCard
 }
 
@@ -85,8 +85,6 @@ function addCard(card) {
 
 function openFullImage(evt) {
   const image = evt.target
-  const popupImage = imagePopup.querySelector('.popup__image')
-  const popupCaption = imagePopup.querySelector('.popup__caption')
   const card = image.closest('.card')
   const cardImage = card.querySelector('.card__image')
   const cardTitle = card.querySelector('.card__title')
@@ -97,6 +95,8 @@ function openFullImage(evt) {
 
   popupOpen(imagePopup)
 }
+
+closeImagePopupButton.addEventListener('click', closeImagePopup)
 
 function closeImagePopup() {
   popupClose(imagePopup)
