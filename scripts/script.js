@@ -60,12 +60,12 @@ function popupClose(popup) {
 
 function createCard(card) {
   const blankCard = cardTemplate.querySelector('.card').cloneNode(true)
-  const title = blankCard.querySelector('.card__title')
-  title.textContent = card.name
+  const cardTitle = blankCard.querySelector('.card__title')
+  cardTitle.textContent = card.name
 
-  const image = blankCard.querySelector('.card__image')
-  image.setAttribute('src', card.link)
-  image.setAttribute('alt', `Фотография ${card.name}`)
+  const cardImage = blankCard.querySelector('.card__image')
+  cardImage.setAttribute('src', card.link)
+  cardImage.setAttribute('alt', `Фотография ${card.name}`)
 
   const deleteButton = blankCard.querySelector('.button_action_delete')
   deleteButton.addEventListener('click', handlerDeleteButton)
@@ -73,21 +73,32 @@ function createCard(card) {
   const likeButton = blankCard.querySelector('.button_action_like')
   likeButton.addEventListener('click', handlerLikeButton)
 
-  image.addEventListener('click', showFullImage)
-
-  function showFullImage() {
-    popupImage.setAttribute('src', `${card.link}`)
-    popupImage.setAttribute('alt', `Фотография ${card.name}`)
-    popupCaption.textContent = card.name
-
-    popupOpen(imagePopup)
-  }
+  cardImage.addEventListener('click', openFullImage)
 
   closeImagePopupButton.addEventListener('click', closeImagePopup)
 
-  cardsContainer.prepend(blankCard)
+  return blankCard
 }
 
+function addCard(card) {
+  const newCard = createCard(card)
+  cardsContainer.prepend(newCard)
+}
+
+function openFullImage(evt) {
+  const image = evt.target
+  const popupImage = imagePopup.querySelector('.popup__image')
+  const popupCaption = imagePopup.querySelector('.popup__caption')
+  const card = image.closest('.card')
+  const cardImage = card.querySelector('.card__image')
+  const cardTitle = card.querySelector('.card__title')
+
+  popupImage.setAttribute('src', cardImage.src)
+  popupImage.setAttribute('alt', cardImage.alt)
+  popupCaption.textContent = cardTitle.textContent
+
+  popupOpen(imagePopup)
+}
 
 function closeImagePopup() {
   popupClose(imagePopup)
@@ -97,15 +108,30 @@ function handlerLikeButton(evt) {
   evt.target.classList.toggle('button_action_like_active')
 }
 
-initialCards.forEach(createCard)
-
 function handlerDeleteButton(evt) {
   const button = evt.target;
   const card = button.closest('.card');
   card.remove();
 }
 
-// EDIT POPUP
+function handlerAddCardFormSubmit(evt) {
+  evt.preventDefault()
+  const link = inputLink.value
+  const name = inputTitle.value
+  const newCard = { name, link }
+
+  addCard(newCard)
+  popupClose(addPopup)
+  addForm.reset()
+}
+
+function handlerEditFormSubmit(evt) {
+  evt.preventDefault()
+  profileName.textContent = inputName.value
+  profileAbout.textContent = inputAbout.value
+
+  popupClose(editPopup)
+}
 
 editButton.addEventListener('click', () => {
   popupOpen(editPopup)
@@ -119,17 +145,6 @@ closeEditPopupButton.addEventListener('click', () => {
 
 editForm.addEventListener('submit', handlerEditFormSubmit);
 
-function handlerEditFormSubmit(evt) {
-  evt.preventDefault()
-  profileName.textContent = inputName.value
-  profileAbout.textContent = inputAbout.value
-
-  popupClose(editPopup)
-}
-
-
-// ADD POPUP
-
 addButton.addEventListener('click', () => {
   popupOpen(addPopup)
 })
@@ -140,14 +155,4 @@ closeAddPopupButton.addEventListener('click', () => {
 
 addForm.addEventListener('submit', handlerAddCardFormSubmit)
 
-function handlerAddCardFormSubmit(evt) {
-  evt.preventDefault()
-  const link = inputLink.value
-  const name = inputTitle.value
-
-  const card = { name, link }
-
-  createCard(card)
-  popupClose(addPopup)
-  addForm.reset()
-}
+initialCards.forEach(addCard)
