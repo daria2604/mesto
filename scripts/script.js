@@ -19,8 +19,6 @@ const inputTitle = addForm.querySelector('.popup__input_type_title')
 const inputLink = addForm.querySelector('.popup__input_type_link')
 
 const imagePopup = document.querySelector('.popup_type_image')
-const popupImage = imagePopup.querySelector('.popup__image')
-const popupCaption = imagePopup.querySelector('.popup__caption')
 const closeImagePopupButton = imagePopup.querySelector('.button_action_close')
 
 const initialCards = [
