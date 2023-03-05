@@ -70,7 +70,7 @@ function createCard(card) {
   const deleteButton = blankCard.querySelector('.button_action_delete')
   deleteButton.addEventListener('click', handlerDeleteButton)
 
-  const likeButton = blankCard.querySelector('.button_action_like')
+  const likeButton = blankCard.querySelector('.button__like')
   likeButton.addEventListener('click', handlerLikeButton)
 
   cardImage.addEventListener('click', openFullImage)
@@ -103,7 +103,7 @@ function closeImagePopup() {
 }
 
 function handlerLikeButton(evt) {
-  evt.target.classList.toggle('button_action_like_active')
+  evt.target.classList.toggle('button__like_active')
 }
 
 function handlerDeleteButton(evt) {
