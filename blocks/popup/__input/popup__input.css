@@ -23,6 +23,9 @@
   margin-bottom: 48px;
 }
 
+.popup__input:invalid {
+  border-bottom: 1px solid red;
+}
 
 @media (max-width: 585px) {
   .popup__input:first-of-type {
