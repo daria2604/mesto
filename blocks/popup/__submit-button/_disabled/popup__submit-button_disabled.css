@@ -5,3 +5,7 @@
   opacity: .2;
   margin-top: 31px;
 }
+
+.popup__submit-button_disabled:hover {
+  opacity: .2;
+}
