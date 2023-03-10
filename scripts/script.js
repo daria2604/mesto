@@ -8,15 +8,15 @@ const editPopup = document.querySelector('.popup_type_edit')
 const editButton = document.querySelector('.button_action_edit')
 const closeEditPopupButton = editPopup.querySelector('.button_action_close')
 const editForm = document.forms['editForm']
-const inputName = editForm.querySelector('.popup__input_type_name')
-const inputAbout = editForm.querySelector('.popup__input_type_about')
+const inputName = editForm.elements.name
+const inputAbout = editForm.elements.about
 
 const addPopup = document.querySelector('.popup_type_add')
 const addButton = document.querySelector('.button_action_add')
 const closeAddPopupButton = addPopup.querySelector('.button_action_close')
 const addForm = document.forms['addForm']
-const inputTitle = addForm.querySelector('.popup__input_type_title')
-const inputLink = addForm.querySelector('.popup__input_type_link')
+const inputTitle = addForm.elements.title
+const inputLink = addForm.elements.link
 
 const imagePopup = document.querySelector('.popup_type_image')
 const popupImage = imagePopup.querySelector('.popup__image')
