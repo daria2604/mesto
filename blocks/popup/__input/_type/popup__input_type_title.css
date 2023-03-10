@@ -1,9 +1,0 @@
-.popup__input_type_title:first-of-type {
-  margin-top: 54px;
-}
-
-@media (max-width: 585px) {
-  .popup__input_type_title:first-of-type {
-    margin-top: 75px;
-  }
-}

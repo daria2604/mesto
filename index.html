@@ -43,19 +43,6 @@
   <footer class="footer">
     <p class="footer__copyright">&copy; 2023 Mesto Russia</p>
   </footer>
-  <div class="popup popup_type_edit">
-    <div class="popup__container">
-      <button class="button button_action_close" type="button"></button>
-      <form class="popup__form popup__form_type_edit" name="editForm"  autocomplete="off">
-        <h3 class="popup__heading popup__heading_type_edit">Редактировать профиль</h3>
-        <input type="text" placeholder="Имя" class="popup__input popup__input_type_name" name="name" minlength="2" maxlength="40" value="" required>
-        <span class="popup__input-error popup__input-error_type_name"></span>
-        <input type="text" placeholder="О себе" class="popup__input popup__input_type_about" name="about" minlength="2" maxlength="200" value="" required>
-        <span class="popup__input-error popup__input-error_type_about"></span>
-        <button type="submit" class="popup__submit-button popup__submit-button_type_edit">Сохранить</button>
-      </form>
-    </div>
-  </div>
   <div class="popup popup_type_add">
     <div class="popup__container">
       <button class="button button_action_close" type="button"></button>
@@ -69,6 +56,20 @@
       </form>
     </div>
   </div>
+  <div class="popup popup_type_edit">
+    <div class="popup__container">
+      <button class="button button_action_close" type="button"></button>
+      <form class="popup__form popup__form_type_edit" name="editForm"  autocomplete="off">
+        <h3 class="popup__heading popup__heading_type_edit">Редактировать профиль</h3>
+        <input type="text" placeholder="Имя" class="popup__input popup__input_type_name" name="name" minlength="2" maxlength="40" value="" required>
+        <span class="popup__input-error popup__input-error_type_name"></span>
+        <input type="text" placeholder="О себе" class="popup__input popup__input_type_about" name="about" minlength="2" maxlength="200" value="" required>
+        <span class="popup__input-error popup__input-error_type_about"></span>
+        <button type="submit" class="popup__submit-button popup__submit-button_type_edit">Сохранить</button>
+      </form>
+    </div>
+  </div>
+
   <div class="popup popup_type_image">
     <div class="popup__container">
       <button class="button button_action_close" type="button"></button>
