@@ -42,6 +42,15 @@ function popupCloseEsc(evt) {
   }
 }
 
+function popupCloseOverlay(evt) {
+  if (evt.currentTarget === evt.target) {
+    const popupList = document.querySelectorAll('.popup')
+      popupList.forEach((popup) => {
+        popupClose(popup)
+      })
+    }
+  }
+
 function createCard(card) {
   const blankCard = cardTemplate.querySelector('.card').cloneNode(true)
   const cardTitle = blankCard.querySelector('.card__title')
@@ -137,15 +146,6 @@ addForm.addEventListener('submit', handlerAddCardFormSubmit)
 
 closeImagePopupButton.addEventListener('click', closeImagePopup)
 
-editPopup.addEventListener('mousedown', (evt) => {
-  if (evt.currentTarget === evt.target) {
-    popupClose(editPopup)
-  }
-})
-
-addPopup.addEventListener('mousedown', (evt) => {
-  if (evt.currentTarget === evt.target) {
-    popupClose(addPopup)
-    addForm.reset()
-  }
-})
+editPopup.addEventListener('mousedown', popupCloseOverlay)
+addPopup.addEventListener('mousedown', popupCloseOverlay)
+imagePopup.addEventListener('mousedown', popupCloseOverlay)
