@@ -42,15 +42,6 @@ function popupCloseEsc(evt) {
   }
 }
 
-function popupCloseOverlay(evt) {
-  if(evt.target === evt.currentTraget) {
-    const popupList = document.querySelectorAll('.popup');
-    popupList.forEach((popup) => {
-      popupClose(popup);
-    })
-  }
-}
-
 function createCard(card) {
   const blankCard = cardTemplate.querySelector('.card').cloneNode(true)
   const cardTitle = blankCard.querySelector('.card__title')
