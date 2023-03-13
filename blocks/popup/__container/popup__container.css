@@ -7,6 +7,10 @@
   z-index: 1;
 }
 
+.popup_type_image > .popup__container {
+  grid-template-columns: max-content 32px;
+}
+
 @media (max-width: 585px) {
   .popup__container {
     grid-template-columns: 282px;

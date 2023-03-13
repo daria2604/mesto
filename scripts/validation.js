@@ -8,14 +8,18 @@ const hideInputError = (errorTextElement, activeErrorClass) => {
   errorTextElement.classList.remove(activeErrorClass)
 }
 
-const disableButton = (submitButton, inactiveButtonClass) => {
-  submitButton.classList.add(inactiveButtonClass)
-  submitButton.disabled = true
+const disableButton = (submitButtonList, inactiveButtonClass) => {
+  submitButtonList.forEach((submitButton) => {
+    submitButton.classList.add(inactiveButtonClass)
+    submitButton.disabled = true
+  })
 }
 
-const enableButton = (submitButton, inactiveButtonClass) => {
-  submitButton.classList.remove(inactiveButtonClass)
-  submitButton.disabled = false
+const enableButton = (submitButtonList, inactiveButtonClass) => {
+  submitButtonList.forEach((submitButton) => {
+    submitButton.classList.remove(inactiveButtonClass)
+    submitButton.disabled = false
+  })
 }
 
 const isValid = (input, errorCalssTemplate, activeErrorClass) => {
@@ -31,33 +35,35 @@ const hasInvalidInput = (inputList) => {
   return Array.from(inputList).some((input) => !input.validity.valid )
 }
 
-const toggleButtonState = (submitButton, inactiveButtonClass, inputList) => {
-  if (hasInvalidInput(inputList)) {
-    disableButton(submitButton, inactiveButtonClass)
+const toggleButtonState = (submitButtonList, inactiveButtonClass, inputList) => {
+  if (!hasInvalidInput(inputList)) {
+    enableButton(submitButtonList, inactiveButtonClass)
   } else {
-    enableButton(submitButton, inactiveButtonClass)
+    disableButton(submitButtonList, inactiveButtonClass)
   }
 }
 
-const setEventListeners = (form, inputList, errorCalssTemplate, activeErrorClass, inactiveButtonClass, submitButton) => {
-  form.addEventListener('submit', (evt) => {
-    evt.preventDefault()
+const setEventListeners = (formList, inputList, errorCalssTemplate, activeErrorClass, inactiveButtonClass, submitButtonList) => {
+  formList.forEach((form) => {
+    form.addEventListener('submit', (evt) => {
+      evt.preventDefault()
+    })
   })
 
   inputList.forEach((input) => {
     input.addEventListener('input', () => {
       isValid(input, errorCalssTemplate, activeErrorClass)
-      toggleButtonState(submitButton, inactiveButtonClass, inputList)
+      toggleButtonState(submitButtonList, inactiveButtonClass, inputList)
     })
   })
 }
 
 const enableValidation = (config) => {
-  const form = document.querySelector(config.formSelector)
-  const inputList = form.querySelectorAll(config.inputSelector)
-  const submitButton = form.querySelector(config.submitButtonSelector)
+  const formList = document.querySelectorAll(config.formSelector)
+  const inputList = document.querySelectorAll(config.inputSelector)
+  const submitButtonList = document.querySelectorAll(config.submitButtonSelector)
 
-  setEventListeners(form, inputList, config.errorCalssTemplate, config.activeErrorClass, config.inactiveButtonClass, submitButton)
+  setEventListeners(formList, inputList, config.errorCalssTemplate, config.activeErrorClass, config.inactiveButtonClass, submitButtonList)
 }
 
 enableValidation({
