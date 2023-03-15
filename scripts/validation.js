@@ -8,69 +8,69 @@ const hideInputError = (errorTextElement, activeErrorClass) => {
   errorTextElement.classList.remove(activeErrorClass)
 }
 
-const disableButton = (submitButtonList, inactiveButtonClass) => {
-  submitButtonList.forEach((submitButton) => {
-    submitButton.classList.add(inactiveButtonClass)
-    submitButton.disabled = true
-  })
+const disableButton = (submitButton, inactiveSubmitButtonClass) => {
+  submitButton.classList.add(inactiveSubmitButtonClass)
+  submitButton.disabled = true
 }
 
-const enableButton = (submitButtonList, inactiveButtonClass) => {
-  submitButtonList.forEach((submitButton) => {
-    submitButton.classList.remove(inactiveButtonClass)
-    submitButton.disabled = false
-  })
+const enableButton = (submitButton, inactiveSubmitButtonClass) => {
+  submitButton.classList.remove(inactiveSubmitButtonClass)
+  submitButton.disabled = false
 }
 
-const isValid = (input, errorClassTemplate, activeErrorClass) => {
+const checkInputValidity = (input, errorClassTemplate, activeErrorClass, errorClass) => {
   const errorTextElement = document.querySelector(`${errorClassTemplate}${input.name}`)
-  if (input.validity.valid) {
-    hideInputError(errorTextElement)
-  } else {
+  console.log(errorTextElement)
+
+  if(!input.validity.valid) {
     showInputError(errorTextElement, input.validationMessage, activeErrorClass)
+    input.classList.add(errorClass)
+  } else {
+    hideInputError(errorTextElement, activeErrorClass)
+    input.classList.remove(errorClass)
   }
 }
 
 const hasInvalidInput = (inputList) => {
-  return Array.from(inputList).some((input) => !input.validity.valid )
+  return Array.from(inputList).some((input) => !input.validity.valid)
 }
 
-const toggleButtonState = (submitButtonList, inactiveButtonClass, inputList) => {
-  if (!hasInvalidInput(inputList)) {
-    enableButton(submitButtonList, inactiveButtonClass)
+const toggleButtonState = (submitButton, inactiveSubmitButtonClass, inputList) => {
+  if(hasInvalidInput(inputList)) {
+    disableButton(submitButton, inactiveSubmitButtonClass, inputList)
   } else {
-    disableButton(submitButtonList, inactiveButtonClass)
+    enableButton(submitButton, inactiveSubmitButtonClass, inputList)
   }
+  console.log(submitButton)
 }
 
-const setEventListeners = (formList, inputList, errorClassTemplate, activeErrorClass, inactiveButtonClass, submitButtonList) => {
-  formList.forEach((form) => {
-    form.addEventListener('submit', (evt) => {
-      evt.preventDefault()
-    })
+const setEventListeners = (form, inputList, errorClassTemplate, activeErrorClass, errorClass, inactiveSubmitButtonClass, submitButton) => {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault()
   })
 
   inputList.forEach((input) => {
-    input.addEventListener('input', () => {
-      isValid(input, errorClassTemplate, activeErrorClass)
-      toggleButtonState(submitButtonList, inactiveButtonClass, inputList)
+    input.addEventListener('input', (evt) => {
+      checkInputValidity(input, errorClassTemplate, activeErrorClass, errorClass)
+      toggleButtonState(submitButton, inactiveSubmitButtonClass, inputList)
     })
   })
 }
 
 const enableValidation = (config) => {
-  const formList = document.querySelectorAll(config.formSelector)
-  const inputList = document.querySelectorAll(config.inputSelector)
-  const submitButtonList = document.querySelectorAll(config.submitButtonSelector)
+  const form = document.querySelector(config.formSelector)
+  const inputList = form.querySelectorAll(config.inputSelector)
+  const submitButton = form.querySelector(config.submitButtonSelector)
 
-  setEventListeners(formList, inputList, config.errorClassTemplate, config.activeErrorClass, config.inactiveButtonClass, submitButtonList)
+  setEventListeners(form, inputList, config.errorClassTemplate, config.activeErrorClass, config.errorClass, config.inactiveSubmitButtonClass, submitButton)
 }
 
 enableValidation({
   formSelector: '.popup__form',
-  inputSelector: '.popup__input',
+  inputSelector:'.popup__input',
   errorClassTemplate: '.popup__input-error_type_',
-  activeErrorClass: 'popup__input-error',
+  activeErrorClass: 'popup__input-error_active',
+  errorClass: 'popup__input_type_error',
   submitButtonSelector: '.popup__submit-button',
-  inactiveButtonClass: 'popup__submit-button_disabled'
+  inactiveSubmitButtonClass: 'popup__submit-button_disabled'
 })
