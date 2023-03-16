@@ -108,10 +108,13 @@ function handlerAddCardFormSubmit(evt) {
   const link = inputLink.value
   const name = inputTitle.value
   const newCard = { name, link }
+  const submitBtn = addForm.querySelector('.popup__submit-button')
 
   addCard(newCard)
-  popupClose(addPopup)
   addForm.reset()
+  submitBtn.classList.add('popup__submit-button_disabled')
+  submitBtn.disabled = true
+  popupClose(addPopup)
 }
 
 function handlerEditFormSubmit(evt) {

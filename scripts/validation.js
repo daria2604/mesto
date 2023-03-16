@@ -20,7 +20,6 @@ const enableButton = (submitButton, inactiveSubmitButtonClass) => {
 
 const checkInputValidity = (input, errorClassTemplate, activeErrorClass, errorClass) => {
   const errorTextElement = document.querySelector(`${errorClassTemplate}${input.name}`)
-  console.log(errorTextElement)
 
   if(!input.validity.valid) {
     showInputError(errorTextElement, input.validationMessage, activeErrorClass)
@@ -41,7 +40,6 @@ const toggleButtonState = (submitButton, inactiveSubmitButtonClass, inputList) =
   } else {
     enableButton(submitButton, inactiveSubmitButtonClass, inputList)
   }
-  console.log(submitButton)
 }
 
 const setEventListeners = (inputSelector, form, errorClassTemplate, activeErrorClass, errorClass, inactiveSubmitButtonClass, submitButtonSelector) => {
