@@ -1,3 +1,4 @@
+const popupList = document.querySelectorAll('.popup')
 const cardsContainer = document.querySelector('.cards')
 const cardTemplate = document.querySelector('#cardTemplate').content
 
@@ -35,7 +36,6 @@ function closePopup(popup) {
 
 function closeOnEsc(evt) {
   if (evt.key === 'Escape') {
-    const popupList = document.querySelectorAll('.popup');
     popupList.forEach((popup) => {
       closePopup(popup)
     })
@@ -44,7 +44,6 @@ function closeOnEsc(evt) {
 
 function closeOnOverlay(evt) {
   if (evt.currentTarget === evt.target) {
-    const popupList = document.querySelectorAll('.popup')
     popupList.forEach((popup) => {
       closePopup(popup)
     })
