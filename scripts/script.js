@@ -36,17 +36,13 @@ function closePopup(popup) {
 
 function closeOnEsc(evt) {
   if (evt.key === 'Escape') {
-    popupList.forEach((popup) => {
-      closePopup(popup)
-    })
+    popupList.forEach(closePopup)
   }
 }
 
 function closeOnOverlay(evt) {
   if (evt.currentTarget === evt.target) {
-    popupList.forEach((popup) => {
-      closePopup(popup)
-    })
+    popupList.forEach(closePopup)
   }
 }
 
@@ -65,7 +61,7 @@ function createCard(card) {
   const likeButton = blankCard.querySelector('.button__like')
   likeButton.addEventListener('click', handleLikeButton)
 
-  cardImage.addEventListener('click', openFullImage)
+  cardImage.addEventListener('click', () => handleCardClick(card))
 
   return blankCard
 }
@@ -75,15 +71,10 @@ function addCard(card) {
   cardsContainer.prepend(newCard)
 }
 
-function openFullImage(evt) {
-  const image = evt.target
-  const card = image.closest('.card')
-  const cardImage = card.querySelector('.card__image')
-  const cardTitle = card.querySelector('.card__title')
-
-  popupImage.setAttribute('src', cardImage.src)
-  popupImage.setAttribute('alt', cardImage.alt)
-  popupCaption.textContent = cardTitle.textContent
+function handleCardClick(card) {
+  popupImage.setAttribute('src', card.link)
+  popupImage.setAttribute('alt', `Фотография ${card.name}`)
+  popupCaption.textContent = card.name
 
   openPopup(imagePopup)
 }
@@ -107,12 +98,11 @@ function handleAddCardFormSubmit(evt) {
   const link = inputLink.value
   const name = inputTitle.value
   const newCard = { name, link }
-  const submitBtn = addForm.querySelector('.popup__submit-button')
 
   addCard(newCard)
   addForm.reset()
-  submitBtn.classList.add('popup__submit-button_disabled')
-  submitBtn.disabled = true
+  evt.submitter.classList.add('popup__submit-button_disabled')
+  evt.submitter.disabled = true
   closePopup(addPopup)
 }
 
