@@ -17,4 +17,8 @@
     grid-template-rows: repeat(2, max-content);
     row-gap: 16px;
   }
+
+  .popup_type_image > .popup__container {
+    grid-template-columns: max-content;
+  }
 }
