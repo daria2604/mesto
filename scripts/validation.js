@@ -53,6 +53,10 @@ const setEventListeners = (inputSelector, form, errorClassTemplate, activeErrorC
     })
   })
 
+  form.addEventListener('reset', () => {
+    disableButton(submitButton, inactiveSubmitButtonClass, inputList)
+  });
+
   toggleButtonState(submitButton, inactiveSubmitButtonClass, inputList)
 }
 

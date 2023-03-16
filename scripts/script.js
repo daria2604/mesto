@@ -95,8 +95,6 @@ function handleAddCardFormSubmit(evt) {
 
   addCard(newCard)
   addForm.reset()
-  evt.submitter.classList.add('popup__submit-button_disabled')
-  evt.submitter.disabled = true
   closePopup(addPopup)
 }
 
