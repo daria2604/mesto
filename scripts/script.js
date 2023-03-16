@@ -40,12 +40,6 @@ function closeOnEsc(evt) {
   }
 }
 
-function closeOnOverlay(evt) {
-  if (evt.currentTarget === evt.target) {
-    popupList.forEach(closePopup)
-  }
-}
-
 function createCard(card) {
   const blankCard = cardTemplate.querySelector('.card').cloneNode(true)
   const cardTitle = blankCard.querySelector('.card__title')
@@ -114,15 +108,22 @@ function handleEditFormSubmit(evt) {
   closePopup(editPopup)
 }
 
+popupList.forEach((popup) => {
+  popup.addEventListener('mousedown', (evt) => {
+    if(evt.target.classList.contains('popup_opened')) {
+      closePopup(popup)
+    }
+    if(evt.target.classList.contains('button_action_close')) {
+      closePopup(popup)
+    }
+  })
+})
+
 editButton.addEventListener('click', () => {
   openPopup(editPopup)
   inputName.value = profileName.textContent
   inputAbout.value = profileAbout.textContent
 })
-
-closeEditPopupButton.addEventListener('click', () => {
-  closePopup(editPopup)
-} )
 
 editForm.addEventListener('submit', handleEditFormSubmit);
 
@@ -130,14 +131,4 @@ addButton.addEventListener('click', () => {
   openPopup(addPopup)
 })
 
-closeAddPopupButton.addEventListener('click', () => {
-  closePopup(addPopup)
-})
-
 addForm.addEventListener('submit', handleAddCardFormSubmit)
-
-closeImagePopupButton.addEventListener('click', closeImagePopup)
-
-editPopup.addEventListener('mousedown', closeOnOverlay)
-addPopup.addEventListener('mousedown', closeOnOverlay)
-imagePopup.addEventListener('mousedown', closeOnOverlay)
