@@ -23,33 +23,33 @@ const popupImage = imagePopup.querySelector('.popup__image')
 const popupCaption = imagePopup.querySelector('.popup__caption')
 const closeImagePopupButton = imagePopup.querySelector('.button_action_close')
 
-function popupOpen(popup) {
+function openPopup(popup) {
   popup.classList.add('popup_opened')
-  document.addEventListener('keydown', popupCloseEsc)
+  document.addEventListener('keydown', closeOnEsc)
 }
 
-function popupClose(popup) {
+function closePopup(popup) {
   popup.classList.remove('popup_opened')
-  document.removeEventListener('keydown', popupCloseEsc)
+  document.removeEventListener('keydown', closeOnEsc)
 }
 
-function popupCloseEsc(evt) {
+function closeOnEsc(evt) {
   if (evt.key === 'Escape') {
     const popupList = document.querySelectorAll('.popup');
     popupList.forEach((popup) => {
-      popupClose(popup);
+      closePopup(popup)
     })
   }
 }
 
-function popupCloseOverlay(evt) {
+function closeOnOverlay(evt) {
   if (evt.currentTarget === evt.target) {
     const popupList = document.querySelectorAll('.popup')
-      popupList.forEach((popup) => {
-        popupClose(popup)
-      })
-    }
+    popupList.forEach((popup) => {
+      closePopup(popup)
+    })
   }
+}
 
 function createCard(card) {
   const blankCard = cardTemplate.querySelector('.card').cloneNode(true)
@@ -61,10 +61,10 @@ function createCard(card) {
   cardImage.setAttribute('alt', `Фотография ${card.name}`)
 
   const deleteButton = blankCard.querySelector('.button_action_delete')
-  deleteButton.addEventListener('click', handlerDeleteButton)
+  deleteButton.addEventListener('click', handleDeleteButton)
 
   const likeButton = blankCard.querySelector('.button__like')
-  likeButton.addEventListener('click', handlerLikeButton)
+  likeButton.addEventListener('click', handleLikeButton)
 
   cardImage.addEventListener('click', openFullImage)
 
@@ -86,24 +86,24 @@ function openFullImage(evt) {
   popupImage.setAttribute('alt', cardImage.alt)
   popupCaption.textContent = cardTitle.textContent
 
-  popupOpen(imagePopup)
+  openPopup(imagePopup)
 }
 
 function closeImagePopup() {
-  popupClose(imagePopup)
+  closePopup(imagePopup)
 }
 
-function handlerLikeButton(evt) {
+function handleLikeButton(evt) {
   evt.target.classList.toggle('button__like_active')
 }
 
-function handlerDeleteButton(evt) {
+function handleDeleteButton(evt) {
   const button = evt.target;
   const card = button.closest('.card');
   card.remove();
 }
 
-function handlerAddCardFormSubmit(evt) {
+function handleAddCardFormSubmit(evt) {
   evt.preventDefault()
   const link = inputLink.value
   const name = inputTitle.value
@@ -114,41 +114,41 @@ function handlerAddCardFormSubmit(evt) {
   addForm.reset()
   submitBtn.classList.add('popup__submit-button_disabled')
   submitBtn.disabled = true
-  popupClose(addPopup)
+  closePopup(addPopup)
 }
 
-function handlerEditFormSubmit(evt) {
+function handleEditFormSubmit(evt) {
   evt.preventDefault()
   profileName.textContent = inputName.value
   profileAbout.textContent = inputAbout.value
 
-  popupClose(editPopup)
+  closePopup(editPopup)
 }
 
 editButton.addEventListener('click', () => {
-  popupOpen(editPopup)
+  openPopup(editPopup)
   inputName.value = profileName.textContent
   inputAbout.value = profileAbout.textContent
 })
 
 closeEditPopupButton.addEventListener('click', () => {
-  popupClose(editPopup)
+  closePopup(editPopup)
 } )
 
-editForm.addEventListener('submit', handlerEditFormSubmit);
+editForm.addEventListener('submit', handleEditFormSubmit);
 
 addButton.addEventListener('click', () => {
-  popupOpen(addPopup)
+  openPopup(addPopup)
 })
 
 closeAddPopupButton.addEventListener('click', () => {
-  popupClose(addPopup)
+  closePopup(addPopup)
 })
 
-addForm.addEventListener('submit', handlerAddCardFormSubmit)
+addForm.addEventListener('submit', handleAddCardFormSubmit)
 
 closeImagePopupButton.addEventListener('click', closeImagePopup)
 
-editPopup.addEventListener('mousedown', popupCloseOverlay)
-addPopup.addEventListener('mousedown', popupCloseOverlay)
-imagePopup.addEventListener('mousedown', popupCloseOverlay)
+editPopup.addEventListener('mousedown', closeOnOverlay)
+addPopup.addEventListener('mousedown', closeOnOverlay)
+imagePopup.addEventListener('mousedown', closeOnOverlay)
