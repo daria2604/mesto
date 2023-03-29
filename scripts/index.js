@@ -1,20 +1,19 @@
+import { Card } from './Card.js'
+
 const popupList = document.querySelectorAll('.popup')
 const cardsContainer = document.querySelector('.cards')
-const cardTemplate = document.querySelector('#cardTemplate').content
 
 const profileName = document.querySelector('.profile__name')
 const profileAbout = document.querySelector('.profile__about')
 
 const editPopup = document.querySelector('.popup_type_edit')
 const editButton = document.querySelector('.button_action_edit')
-const closeEditPopupButton = editPopup.querySelector('.button_action_close')
 const editForm = document.forms['editForm']
 const inputName = editForm.elements.name
 const inputAbout = editForm.elements.about
 
 const addPopup = document.querySelector('.popup_type_add')
 const addButton = document.querySelector('.button_action_add')
-const closeAddPopupButton = addPopup.querySelector('.button_action_close')
 const addForm = document.forms['addForm']
 const inputTitle = addForm.elements.title
 const inputLink = addForm.elements.link
@@ -22,7 +21,6 @@ const inputLink = addForm.elements.link
 const imagePopup = document.querySelector('.popup_type_image')
 const popupImage = imagePopup.querySelector('.popup__image')
 const popupCaption = imagePopup.querySelector('.popup__caption')
-const closeImagePopupButton = imagePopup.querySelector('.button_action_close')
 
 function openPopup(popup) {
   popup.classList.add('popup_opened')
@@ -40,51 +38,18 @@ function closeOnEsc(evt) {
   }
 }
 
-function createCard(card) {
-  const blankCard = cardTemplate.querySelector('.card').cloneNode(true)
-  const cardTitle = blankCard.querySelector('.card__title')
-  cardTitle.textContent = card.name
-
-  const cardImage = blankCard.querySelector('.card__image')
-  cardImage.setAttribute('src', card.link)
-  cardImage.setAttribute('alt', `Фотография ${card.name}`)
-
-  const deleteButton = blankCard.querySelector('.button_action_delete')
-  deleteButton.addEventListener('click', handleDeleteButton)
-
-  const likeButton = blankCard.querySelector('.button__like')
-  likeButton.addEventListener('click', handleLikeButton)
-
-  cardImage.addEventListener('click', () => handleCardClick(card))
-
-  return blankCard
+function addCard(data) {
+  const newCard = new Card(data, handleCardClick)
+  const cardElement = newCard.generateCard()
+  cardsContainer.prepend(cardElement)
 }
 
-function addCard(card) {
-  const newCard = createCard(card)
-  cardsContainer.prepend(newCard)
-}
-
-function handleCardClick(card) {
-  popupImage.setAttribute('src', card.link)
-  popupImage.setAttribute('alt', `Фотография ${card.name}`)
-  popupCaption.textContent = card.name
+export function handleCardClick() {
+  popupImage.src = this.link
+  popupImage.alt = `Фотография ${this.name}`
+  popupCaption.textContent = this.name
 
   openPopup(imagePopup)
-}
-
-function closeImagePopup() {
-  closePopup(imagePopup)
-}
-
-function handleLikeButton(evt) {
-  evt.target.classList.toggle('button__like_active')
-}
-
-function handleDeleteButton(evt) {
-  const button = evt.target;
-  const card = button.closest('.card');
-  card.remove();
 }
 
 function handleAddCardFormSubmit(evt) {
