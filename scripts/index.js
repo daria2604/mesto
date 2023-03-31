@@ -1,4 +1,5 @@
 import { Card } from './Card.js'
+import { FormValidator, settings } from './FormValidator.js'
 
 const popupList = document.querySelectorAll('.popup')
 const cardsContainer = document.querySelector('.cards')
@@ -95,3 +96,6 @@ addButton.addEventListener('click', () => {
 })
 
 addForm.addEventListener('submit', handleAddCardFormSubmit)
+
+new FormValidator(settings, editForm).enableValidation()
+new FormValidator(settings, addForm).enableValidation()
