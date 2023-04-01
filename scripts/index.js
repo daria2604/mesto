@@ -3,6 +3,7 @@ import { Card } from './Card.js'
 import { FormValidator, settings } from './FormValidator.js'
 
 const popupList = document.querySelectorAll('.popup')
+const cardTemplate = document.querySelector('#cardTemplate')
 const cardsContainer = document.querySelector('.cards')
 
 const profileName = document.querySelector('.profile__name')
@@ -41,7 +42,7 @@ function closeOnEsc(evt) {
 }
 
 function createCard(item) {
-  return new Card(item, handleCardClick).generateCard()
+  return new Card(item, cardTemplate, handleCardClick).generateCard()
 }
 
 function addCard(card) {

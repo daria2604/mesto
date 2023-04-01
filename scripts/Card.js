@@ -1,15 +1,15 @@
 export class Card {
   #element
-  static #template = document.querySelector('#cardTemplate').content
-
-  constructor(data, handleCardClick) {
+  
+  constructor(data, template, handleCardClick) {
     this.name = data.name
     this.link = data.link
+    this.template = template
     this.handleCardClick = handleCardClick
   }
 
   #getTemplate() {
-    const blankCard = Card.#template.querySelector('.card').cloneNode(true)
+    const blankCard = this.template.content.querySelector('.card').cloneNode(true)
 
     return blankCard
   }

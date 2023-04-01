@@ -1,5 +1,4 @@
 export class FormValidator {
-  #formSelector
   #inputSelector
   #errorClassTemplate
   #activeErrorClass
@@ -13,7 +12,6 @@ export class FormValidator {
   #submitButton
 
   constructor(config, formElement) {
-    this.#formSelector = config.formSelector
     this.#inputSelector = config.inputSelector
     this.#errorClassTemplate = config.errorClassTemplate
     this.#activeErrorClass = config.activeErrorClass
@@ -90,7 +88,6 @@ export class FormValidator {
 }
 
 export const settings = {
-  formSelector: '.popup__form',
   inputSelector:'.popup__input',
   errorClassTemplate: '.popup__input-error_type_',
   activeErrorClass: 'popup__input-error_active',
