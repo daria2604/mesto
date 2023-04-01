@@ -1,6 +1,3 @@
-import { initialCards } from './initialCards.js'
-import { handleCardClick } from './index.js'
-
 export class Card {
   #element
   static #template = document.querySelector('#cardTemplate').content
@@ -54,9 +51,3 @@ export class Card {
     return this.#element
   }
 }
-
-initialCards.forEach((card) => {
-  const newCard = new Card(card, handleCardClick)
-  const cardElement = newCard.generateCard()
-  document.querySelector('.cards').append(cardElement)
-})

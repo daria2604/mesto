@@ -1,3 +1,4 @@
+import { initialCards } from './initialCards.js'
 import { Card } from './Card.js'
 import { FormValidator, settings } from './FormValidator.js'
 
@@ -39,9 +40,12 @@ function closeOnEsc(evt) {
   }
 }
 
-function addCard(data) {
-  const newCard = new Card(data, handleCardClick)
-  const cardElement = newCard.generateCard()
+function createCard(item) {
+  return new Card(item, handleCardClick).generateCard()
+}
+
+function addCard(card) {
+  const cardElement = createCard(card)
   cardsContainer.prepend(cardElement)
 }
 
@@ -99,3 +103,8 @@ addForm.addEventListener('submit', handleAddCardFormSubmit)
 
 new FormValidator(settings, editForm).enableValidation()
 new FormValidator(settings, addForm).enableValidation()
+
+initialCards.forEach((card) => {
+  const cardElement = createCard(card)
+  cardsContainer.append(cardElement)
+})
