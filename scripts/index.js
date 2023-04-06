@@ -25,6 +25,7 @@ const imagePopup = document.querySelector('.popup_type_image')
 const popupImage = imagePopup.querySelector('.popup__image')
 const popupCaption = imagePopup.querySelector('.popup__caption')
 
+const formList = Array.from(document.querySelectorAll('.popup__form'))
 const formValidators = {}
 
 function openPopup(popup) {
@@ -82,7 +83,6 @@ function handleEditFormSubmit(evt) {
 }
 
 function enableValidation(config) {
-  const formList = Array.from(document.querySelectorAll('.popup__form'))
   formList.forEach((form) => {
     const validator = new FormValidator(config, form)
     const formName = validator.name
@@ -93,6 +93,12 @@ function enableValidation(config) {
 }
 
 enableValidation(settings)
+
+function resetValidation(config, form) {
+  const validator = new FormValidator(config, form)
+  formValidators[form.name] = validator
+  validator.resetValidation()
+}
 
 popupList.forEach((popup) => {
   popup.addEventListener('mousedown', (evt) => {
@@ -109,13 +115,14 @@ editButton.addEventListener('click', () => {
   openPopup(editPopup)
   inputName.value = profileName.textContent
   inputAbout.value = profileAbout.textContent
+  resetValidation(settings, editForm)
 })
 
 editForm.addEventListener('submit', handleEditFormSubmit);
 
 addButton.addEventListener('click', () => {
   openPopup(addPopup)
-  new FormValidator(settings, addForm).resetValidation()
+  resetValidation(settings, addForm)
 })
 
 addForm.addEventListener('submit', handleAddCardFormSubmit)
