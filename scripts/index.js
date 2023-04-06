@@ -36,8 +36,6 @@ function openPopup(popup) {
 function closePopup(popup) {
   popup.classList.remove('popup_opened')
   document.removeEventListener('keydown', closeOnEsc)
-  addForm.reset()
-  editForm.reset()
 }
 
 function closeOnEsc(evt) {
@@ -85,7 +83,7 @@ function handleEditFormSubmit(evt) {
 function enableValidation(config) {
   formList.forEach((form) => {
     const validator = new FormValidator(config, form)
-    const formName = validator.name
+    const formName = form.name
 
     formValidators[formName] = validator
     validator.enableValidation()
@@ -94,9 +92,8 @@ function enableValidation(config) {
 
 enableValidation(settings)
 
-function resetValidation(config, form) {
-  const validator = new FormValidator(config, form)
-  formValidators[form.name] = validator
+function resetValidation(form) {
+  const validator = formValidators[form.name]
   validator.resetValidation()
 }
 
@@ -115,14 +112,15 @@ editButton.addEventListener('click', () => {
   openPopup(editPopup)
   inputName.value = profileName.textContent
   inputAbout.value = profileAbout.textContent
-  resetValidation(settings, editForm)
+  resetValidation(editForm)
 })
 
 editForm.addEventListener('submit', handleEditFormSubmit);
 
 addButton.addEventListener('click', () => {
+  addForm.reset()
+  resetValidation(addForm)
   openPopup(addPopup)
-  resetValidation(settings, addForm)
 })
 
 addForm.addEventListener('submit', handleAddCardFormSubmit)
