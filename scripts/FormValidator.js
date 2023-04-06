@@ -8,7 +8,6 @@ export class FormValidator {
   #formElement
   #errorTextElement
   #inputList
-  #formList
   #submitButton
 
   constructor(config, formElement) {
@@ -19,14 +18,19 @@ export class FormValidator {
     this.#submitButtonSelector = config.submitButtonSelector
     this.#inactiveSubmitButtonClass = config.inactiveSubmitButtonClass
     this.#formElement = formElement
+    this.#inputList = Array.from(this.#formElement.querySelectorAll(this.#inputSelector))
+    this.#submitButton = this.#formElement.querySelector(this.#submitButtonSelector)
   }
 
+
   #showInputError(input) {
+    this.#errorTextElement = this.#formElement.querySelector(`${this.#errorClassTemplate}${input.name}`)
     this.#errorTextElement.textContent = input.validationMessage
     this.#errorTextElement.classList.add(this.#activeErrorClass)
   }
 
-  #hideInputError() {
+  #hideInputError(input) {
+    this.#errorTextElement = this.#formElement.querySelector(`${this.#errorClassTemplate}${input.name}`)
     this.#errorTextElement.textContent = ''
     this.#errorTextElement.classList.remove(this.#activeErrorClass)
   }
@@ -42,10 +46,8 @@ export class FormValidator {
   }
 
   #checkInputValidity(input) {
-    this.#errorTextElement = this.#formElement.querySelector(`${this.#errorClassTemplate}${input.name}`)
-
     if(input.checkValidity()) {
-      this.#hideInputError()
+      this.#hideInputError(input)
       input.classList.remove(this.#errorClass)
     } else {
       this.#showInputError(input)
@@ -62,9 +64,6 @@ export class FormValidator {
   }
 
   #setEventListeners() {
-    this.#inputList = Array.from(this.#formElement.querySelectorAll(this.#inputSelector))
-    this.#submitButton = this.#formElement.querySelector(this.#submitButtonSelector)
-
     this.#inputList.forEach((input) => {
       input.addEventListener('input', () => {
         this.#checkInputValidity(input)
@@ -84,6 +83,14 @@ export class FormValidator {
       evt.preventDefault()
     })
     this.#setEventListeners()
+  }
+
+  resetValidation() {
+    this.#toggleButtonState()
+    this.#inputList.forEach((input) => {
+      this.#hideInputError(input)
+      input.classList.remove(this.#errorClass)
+    })
   }
 }
 
