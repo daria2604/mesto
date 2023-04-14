@@ -1,6 +1,9 @@
 import { initialCards } from './initialCards.js'
 import { Card } from './Card.js'
 import { FormValidator, settings } from './FormValidator.js'
+import { Section } from './Section.js'
+import PopupWithImage from './PopupWithImage.js'
+import PopupWithForm from './PopupWithForm.js'
 
 const popupList = document.querySelectorAll('.popup')
 const cardTemplate = document.querySelector('#cardTemplate')
@@ -28,41 +31,45 @@ const popupCaption = imagePopup.querySelector('.popup__caption')
 const formList = Array.from(document.querySelectorAll('.popup__form'))
 const formValidators = {}
 
-function openPopup(popup) {
-  popup.classList.add('popup_opened')
-  document.addEventListener('keydown', closeOnEsc)
-}
+// function openPopup(popup) {
+//   popup.classList.add('popup_opened')
+//   document.addEventListener('keydown', closeOnEsc)
+// }
 
-function closePopup(popup) {
-  popup.classList.remove('popup_opened')
-  document.removeEventListener('keydown', closeOnEsc)
-}
+// function closePopup(popup) {
+//   popup.classList.remove('popup_opened')
+//   document.removeEventListener('keydown', closeOnEsc)
+// }
 
-function closeOnEsc(evt) {
-  if (evt.key === 'Escape') {
-    popupList.forEach(closePopup)
-  }
-}
+// function closeOnEsc(evt) {
+//   if (evt.key === 'Escape') {
+//     popupList.forEach(closePopup)
+//   }
+// }
 
-function createCard(item) {
-  return new Card(item, cardTemplate, handleCardClick).generateCard()
-}
+// function createCard(item) {
+//   return new Card(item, cardTemplate, handleCardClick).generateCard()
+// }
 
-function addCard(card) {
-  const cardElement = createCard(card)
-  cardsContainer.prepend(cardElement)
-}
+// function addCard(card) {
+//   const cardElement = createCard(card)
+//   cardsContainer.prepend(cardElement)
+// }
+const popupWithImage = new PopupWithImage('.popup_type_image')
 
 export function handleCardClick() {
-  popupImage.src = this.link
-  popupImage.alt = `Фотография ${this.name}`
-  popupCaption.textContent = this.name
+  // popupImage.src = this.link
+  // popupImage.alt = `Фотография ${this.name}`
+  // popupCaption.textContent = this.name
 
-  openPopup(imagePopup)
+  // openPopup(imagePopup)
+
+  popupWithImage.open()
 }
 
+popupWithImage.setEventListeners()
+
 function handleAddCardFormSubmit(evt) {
-  evt.preventDefault()
   const link = inputLink.value
   const name = inputTitle.value
   const newCard = { name, link }
@@ -72,12 +79,11 @@ function handleAddCardFormSubmit(evt) {
   closePopup(addPopup)
 }
 
-function handleEditFormSubmit(evt) {
-  evt.preventDefault()
+function handleEditFormSubmit() {
   profileName.textContent = inputName.value
   profileAbout.textContent = inputAbout.value
-
-  closePopup(editPopup)
+  edit.close()
+  // closePopup(editPopup)
 }
 
 function enableValidation(config) {
@@ -97,35 +103,34 @@ function resetValidation(form) {
   validator.resetValidation()
 }
 
-popupList.forEach((popup) => {
-  popup.addEventListener('mousedown', (evt) => {
-    if(evt.target.classList.contains('popup_opened')) {
-      closePopup(popup)
-    }
-    if(evt.target.classList.contains('button_action_close')) {
-      closePopup(popup)
-    }
-  })
-})
-
 editButton.addEventListener('click', () => {
-  openPopup(editPopup)
-  inputName.value = profileName.textContent
-  inputAbout.value = profileAbout.textContent
+  // openPopup(editPopup)
+  // inputName.value = profileName.textContent
+  // inputAbout.value = profileAbout.textContent
+
   resetValidation(editForm)
+  edit.setEventListeners()
+  edit.open()
 })
 
-editForm.addEventListener('submit', handleEditFormSubmit);
+const edit = new PopupWithForm('.popup_type_edit', handleEditFormSubmit)
 
 addButton.addEventListener('click', () => {
-  addForm.reset()
+  // addForm.reset()
   resetValidation(addForm)
-  openPopup(addPopup)
+  add.setEventListeners()
+  add.open()
 })
 
-addForm.addEventListener('submit', handleAddCardFormSubmit)
+const add = new PopupWithForm('.popup_type_add', handleAddCardFormSubmit)
 
-initialCards.forEach((card) => {
-  const cardElement = createCard(card)
-  cardsContainer.append(cardElement)
-})
+const defaultCards = new Section({
+  data: initialCards,
+  renderer: (item) => {
+    const card  = new Card(item, cardTemplate, handleCardClick).generateCard()
+
+    defaultCards.addItem(card)
+  }
+}, cardsContainer)
+
+defaultCards.renderItems()

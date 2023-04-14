@@ -3,10 +3,10 @@ export class Section {
   #renderedItems
   #renderer
 
-  constructor({ items, renderer }, containerSelector) {
-    this.#renderedItems = items
+  constructor({ data, renderer }, containerSelector) {
+    this.#renderedItems = data
     this.#renderer = renderer
-    this.#container = document.querySelector(containerSelector)
+    this.#container = containerSelector
   }
 
   renderItems() {
