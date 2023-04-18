@@ -1,11 +1,10 @@
 import { initialCards } from './initialCards.js'
 import { Card } from './Card.js'
 import { FormValidator, settings } from './FormValidator.js'
-import { Section } from './Section.js'
+import Section from './Section.js'
 import PopupWithImage from './PopupWithImage.js'
 import PopupWithForm from './PopupWithForm.js'
 
-const popupList = document.querySelectorAll('.popup')
 const cardTemplate = document.querySelector('#cardTemplate')
 const cardsContainer = document.querySelector('.cards')
 
@@ -24,32 +23,12 @@ const addForm = document.forms['addForm']
 const inputTitle = addForm.elements.title
 const inputLink = addForm.elements.link
 
-const imagePopup = document.querySelector('.popup_type_image')
-const popupImage = imagePopup.querySelector('.popup__image')
-const popupCaption = imagePopup.querySelector('.popup__caption')
-
 const formList = Array.from(document.querySelectorAll('.popup__form'))
 const formValidators = {}
 
-// function openPopup(popup) {
-//   popup.classList.add('popup_opened')
-//   document.addEventListener('keydown', closeOnEsc)
-// }
-
-// function closePopup(popup) {
-//   popup.classList.remove('popup_opened')
-//   document.removeEventListener('keydown', closeOnEsc)
-// }
-
-// function closeOnEsc(evt) {
-//   if (evt.key === 'Escape') {
-//     popupList.forEach(closePopup)
-//   }
-// }
-
-// function createCard(item) {
-//   return new Card(item, cardTemplate, handleCardClick).generateCard()
-// }
+function createCard(item) {
+  return new Card(item, cardTemplate, handleCardClick).generateCard()
+}
 
 // function addCard(card) {
 //   const cardElement = createCard(card)
@@ -57,14 +36,8 @@ const formValidators = {}
 // }
 const popupWithImage = new PopupWithImage('.popup_type_image')
 
-export function handleCardClick() {
-  // popupImage.src = this.link
-  // popupImage.alt = `Фотография ${this.name}`
-  // popupCaption.textContent = this.name
-
-  // openPopup(imagePopup)
-
-  popupWithImage.open()
+function handleCardClick(name, link) {
+  popupWithImage.open(name, link)
 }
 
 popupWithImage.setEventListeners()
@@ -124,13 +97,12 @@ addButton.addEventListener('click', () => {
 
 const add = new PopupWithForm('.popup_type_add', handleAddCardFormSubmit)
 
-const defaultCards = new Section({
-  data: initialCards,
+const section = new Section({
+  items: initialCards,
   renderer: (item) => {
-    const card  = new Card(item, cardTemplate, handleCardClick).generateCard()
-
-    defaultCards.addItem(card)
+    const card = createCard(item)
+    section.addItem(card)
   }
 }, cardsContainer)
 
-defaultCards.renderItems()
+section.renderItems()

@@ -1,16 +1,16 @@
-export class Section {
+export default class Section {
   #container
-  #renderedItems
+  #items
   #renderer
 
-  constructor({ data, renderer }, containerSelector) {
-    this.#renderedItems = data
+  constructor({ items, renderer }, containerSelector) {
+    this.#items = items
     this.#renderer = renderer
     this.#container = containerSelector
   }
 
   renderItems() {
-    this.#renderedItems.forEach((item) => {
+    this.#items.forEach((item) => {
       this.#renderer(item)
     })
   }

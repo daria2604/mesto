@@ -1,6 +1,6 @@
 export class Card {
   #element
-  
+
   constructor(data, template, handleCardClick) {
     this.name = data.name
     this.link = data.link
@@ -32,7 +32,7 @@ export class Card {
     })
 
     this.cardImage.addEventListener('click', () => {
-      this.handleCardClick()
+      this.handleCardClick(this.name, this.link)
     } )
   }
 
