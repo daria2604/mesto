@@ -76,17 +76,18 @@ function resetValidation(form) {
   validator.resetValidation()
 }
 
+const edit = new PopupWithForm('.popup_type_edit', handleEditFormSubmit)
+
 editButton.addEventListener('click', () => {
-  // openPopup(editPopup)
-  // inputName.value = profileName.textContent
-  // inputAbout.value = profileAbout.textContent
+  inputName.value = profileName.textContent
+  inputAbout.value = profileAbout.textContent
 
   resetValidation(editForm)
-  edit.setEventListeners()
   edit.open()
 })
 
-const edit = new PopupWithForm('.popup_type_edit', handleEditFormSubmit)
+edit.setEventListeners()
+
 
 addButton.addEventListener('click', () => {
   // addForm.reset()
