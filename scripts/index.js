@@ -32,7 +32,7 @@ const userInfo = new UserInfo({
 
 const editPopup = new PopupWithForm({
   popupSelector: '.popup_type_edit',
-  handleEditFormSubmit: (data) => {
+  handleFormSubmit: (data) => {
   userInfo.setUserInfo(data)
   editPopup.close()
   }
