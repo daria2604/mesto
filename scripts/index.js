@@ -1,10 +1,10 @@
 import { initialCards } from './initialCards.js'
-import { Card } from './Card.js'
-import { FormValidator, settings } from './FormValidator.js'
-import Section from './Section.js'
-import PopupWithImage from './PopupWithImage.js'
-import PopupWithForm from './PopupWithForm.js'
-import UserInfo from './UserInfo.js'
+import { FormValidator, settings } from './components/FormValidator.js'
+import Card from './components/Card.js'
+import Section from './components/Section.js'
+import PopupWithImage from './components/PopupWithImage.js'
+import PopupWithForm from './components/PopupWithForm.js'
+import UserInfo from './components/UserInfo.js'
 
 const cardTemplate = document.querySelector('#cardTemplate')
 const cardsContainer = document.querySelector('.cards')
@@ -19,8 +19,6 @@ const inputAbout = editForm.elements.about
 
 const addButton = document.querySelector('.button_action_add')
 const addForm = document.forms['addForm']
-const inputTitle = addForm.elements.title
-const inputLink = addForm.elements.link
 
 const formList = Array.from(document.querySelectorAll('.popup__form'))
 const formValidators = {}
@@ -38,14 +36,16 @@ const editPopup = new PopupWithForm({
   }
 })
 
-const createCard = (data) => {
-  const card = new Card(data, cardTemplate, {
-    handleCardClick: (name, link) => {
-      popupWithImage.open(name, link)
-    }
-  })
-  return card.generateCard()
-}
+const addPopup = new PopupWithForm({
+  popupSelector: '.popup_type_add',
+  handleFormSubmit: (data) => {
+    const card = createCard(data)
+    cardList.addItem(card)
+    addPopup.close()
+  }
+})
+
+const popupWithImage = new PopupWithImage('.popup_type_image')
 
 const cardList = new Section({
   renderer: (item) => {
@@ -62,11 +62,14 @@ const defalutCards = new Section({
   }
 }, cardsContainer)
 
-defalutCards.renderItems()
-
-const popupWithImage = new PopupWithImage('.popup_type_image')
-
-popupWithImage.setEventListeners()
+const createCard = (data) => {
+  const card = new Card(data, cardTemplate, {
+    handleCardClick: (name, link) => {
+      popupWithImage.open(name, link)
+    }
+  })
+  return card.generateCard()
+}
 
 function enableValidation(config) {
   formList.forEach((form) => {
@@ -77,8 +80,6 @@ function enableValidation(config) {
     validator.enableValidation()
   })
 }
-
-enableValidation(settings)
 
 function resetValidation(form) {
   const validator = formValidators[form.name]
@@ -93,20 +94,15 @@ editButton.addEventListener('click', () => {
   editPopup.open()
 })
 
-editPopup.setEventListeners()
-
-const addPopup = new PopupWithForm({
-  popupSelector: '.popup_type_add',
-  handleFormSubmit: (data) => {
-    const card = createCard(data)
-    cardList.addItem(card)
-    addPopup.close()
-  }
-})
-
 addButton.addEventListener('click', () => {
   resetValidation(addForm)
   addPopup.open()
 })
 
+editPopup.setEventListeners()
 addPopup.setEventListeners()
+popupWithImage.setEventListeners()
+
+enableValidation(settings)
+
+defalutCards.renderItems()
