@@ -38,27 +38,35 @@ const editPopup = new PopupWithForm({
   }
 })
 
-function createCard(item) {
-  return new Card(item, cardTemplate, handleCardClick).generateCard()
+const createCard = (data) => {
+  const card = new Card(data, cardTemplate, {
+    handleCardClick: (name, link) => {
+      popupWithImage.open(name, link)
+    }
+  })
+  return card.generateCard()
 }
+
+const cardList = new Section({
+  renderer: (item) => {
+    const card = createCard(item)
+    cardList.addItem(card)
+  }
+}, cardsContainer)
+
+const defalutCards = new Section({
+  items: initialCards,
+  renderer: (item) => {
+    const card = createCard(item)
+    defalutCards.addInitialCards(card)
+  }
+}, cardsContainer)
+
+defalutCards.renderItems()
 
 const popupWithImage = new PopupWithImage('.popup_type_image')
 
-function handleCardClick(name, link) {
-  popupWithImage.open(name, link)
-}
-
 popupWithImage.setEventListeners()
-
-// function handleAddCardFormSubmit(evt) {
-//   const link = inputLink.value
-//   const name = inputTitle.value
-//   const newCard = { name, link }
-
-//   addCard(newCard)
-//   addForm.reset()
-//   closePopup(addPopup)
-// }
 
 function enableValidation(config) {
   formList.forEach((form) => {
@@ -77,8 +85,6 @@ function resetValidation(form) {
   validator.resetValidation()
 }
 
-
-
 editButton.addEventListener('click', () => {
   inputName.value = userInfo.getUserInfo().name
   inputAbout.value = userInfo.getUserInfo().about
@@ -89,22 +95,18 @@ editButton.addEventListener('click', () => {
 
 editPopup.setEventListeners()
 
-// const addPopup = new PopupWithForm('.popup_type_add', handleAddCardFormSubmit)
-
-// addButton.addEventListener('click', () => {
-//   // addForm.reset()
-//   resetValidation(addForm)
-//   addPopup.open()
-// })
-
-// addPopup.setEventListeners()
-
-const section = new Section({
-  items: initialCards,
-  renderer: (item) => {
-    const card = createCard(item)
-    section.addItem(card)
+const addPopup = new PopupWithForm({
+  popupSelector: '.popup_type_add',
+  handleFormSubmit: (data) => {
+    const card = createCard(data)
+    cardList.addItem(card)
+    addPopup.close()
   }
-}, cardsContainer)
+})
 
-section.renderItems()
+addButton.addEventListener('click', () => {
+  resetValidation(addForm)
+  addPopup.open()
+})
+
+addPopup.setEventListeners()

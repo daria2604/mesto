@@ -15,7 +15,11 @@ export default class Section {
     })
   }
 
-  addItem(element) {
+  addInitialCards(element) {
     this.#container.append(element)
+  }
+
+  addItem(element) {
+    this.#container.prepend(element)
   }
 }
