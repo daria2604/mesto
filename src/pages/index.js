@@ -1,28 +1,13 @@
 import './index.css'
-import { initialCards } from '../scripts/initialCards.js'
+import { initialCards, cardTemplate, cardsContainer, profileAbout,
+  profileName, editButton, addButton, inputName, inputAbout,
+  editForm, addForm, formList, formValidators } from '../scripts/utils/constants.js'
 import { FormValidator, settings } from '../scripts/components/FormValidator.js'
 import Card from '../scripts/components/Card.js'
 import Section from '../scripts/components/Section.js'
 import PopupWithImage from '../scripts/components/PopupWithImage.js'
 import PopupWithForm from '../scripts/components/PopupWithForm.js'
 import UserInfo from '../scripts/components/UserInfo.js'
-
-const cardTemplate = document.querySelector('#cardTemplate')
-const cardsContainer = document.querySelector('.cards')
-
-const profileName = document.querySelector('.profile__name')
-const profileAbout = document.querySelector('.profile__about')
-
-const editButton = document.querySelector('.button_action_edit')
-const editForm = document.forms['editForm']
-const inputName = editForm.elements.name
-const inputAbout = editForm.elements.about
-
-const addButton = document.querySelector('.button_action_add')
-const addForm = document.forms['addForm']
-
-const formList = Array.from(document.querySelectorAll('.popup__form'))
-const formValidators = {}
 
 const userInfo = new UserInfo({
   nameSelector: profileName,
