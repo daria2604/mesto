@@ -1,7 +1,7 @@
 import './index.css'
-import { initialCards, cardTemplate, cardsContainer, profileAbout,
-  profileName, editButton, addButton, inputName, inputAbout,
-  editForm, addForm, formList, formValidators } from '../scripts/utils/constants.js'
+import { initialCards, cardTemplate, cardsContainer, profileName,
+profileAbout, editButton, addButton, editForm, addForm,
+inputName, inputAbout, formList, formValidators } from '../scripts/utils/constants.js'
 import { FormValidator, settings } from '../scripts/components/FormValidator.js'
 import Card from '../scripts/components/Card.js'
 import Section from '../scripts/components/Section.js'
@@ -34,17 +34,10 @@ const addPopup = new PopupWithForm({
 const popupWithImage = new PopupWithImage('.popup_type_image')
 
 const cardList = new Section({
-  renderer: (item) => {
-    const card = createCard(item)
-    cardList.addItem(card)
-  }
-}, cardsContainer)
-
-const defalutCards = new Section({
   items: initialCards,
   renderer: (item) => {
     const card = createCard(item)
-    defalutCards.addInitialCards(card)
+    cardList.addItem(card)
   }
 }, cardsContainer)
 
@@ -73,8 +66,9 @@ function resetValidation(form) {
 }
 
 editButton.addEventListener('click', () => {
-  inputName.value = userInfo.getUserInfo().name
-  inputAbout.value = userInfo.getUserInfo().about
+  const user = userInfo.getUserInfo()
+  inputName.value = user.name
+  inputAbout.value = user.about
 
   resetValidation(editForm)
   editPopup.open()
@@ -91,4 +85,4 @@ popupWithImage.setEventListeners()
 
 enableValidation(settings)
 
-defalutCards.renderItems()
+cardList.renderItems()
