@@ -1,7 +1,5 @@
 import './index.css'
-import { initialCards, cardTemplate, cardsContainer, profileAbout,
-  profileName, editButton, addButton, inputName, inputAbout,
-  editForm, addForm, formList, formValidators } from '../scripts/utils/constants.js'
+import { initialCards, cardTemplate, cardsContainer, profileName, profileAbout, editButton, addButton, editForm, addForm, inputName, inputAbout, formList, formValidators } from '../scripts/utils/constants.js'
 import { FormValidator, settings } from '../scripts/components/FormValidator.js'
 import Card from '../scripts/components/Card.js'
 import Section from '../scripts/components/Section.js'
