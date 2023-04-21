@@ -34,17 +34,10 @@ const addPopup = new PopupWithForm({
 const popupWithImage = new PopupWithImage('.popup_type_image')
 
 const cardList = new Section({
-  renderer: (item) => {
-    const card = createCard(item)
-    cardList.addItem(card)
-  }
-}, cardsContainer)
-
-const defalutCards = new Section({
   items: initialCards,
   renderer: (item) => {
     const card = createCard(item)
-    defalutCards.addInitialCards(card)
+    cardList.addItem(card)
   }
 }, cardsContainer)
 
@@ -92,4 +85,4 @@ popupWithImage.setEventListeners()
 
 enableValidation(settings)
 
-defalutCards.renderItems()
+cardList.renderItems()
