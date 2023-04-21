@@ -9,23 +9,6 @@ import PopupWithImage from '../scripts/components/PopupWithImage.js'
 import PopupWithForm from '../scripts/components/PopupWithForm.js'
 import UserInfo from '../scripts/components/UserInfo.js'
 
-const cardTemplate = document.querySelector('#cardTemplate')
-const cardsContainer = document.querySelector('.cards')
-
-const profileName = document.querySelector('.profile__name')
-const profileAbout = document.querySelector('.profile__about')
-
-const editButton = document.querySelector('.button_action_edit')
-const editForm = document.forms['editForm']
-const inputName = editForm.elements.name
-const inputAbout = editForm.elements.about
-
-const addButton = document.querySelector('.button_action_add')
-const addForm = document.forms['addForm']
-
-const formList = Array.from(document.querySelectorAll('.popup__form'))
-const formValidators = {}
-
 const userInfo = new UserInfo({
   nameSelector: profileName,
   aboutSelector: profileAbout
