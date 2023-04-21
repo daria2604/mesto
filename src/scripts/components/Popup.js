@@ -26,13 +26,14 @@ export default class Popup {
     if(evt.target.classList.contains('popup_opened')) {
       this.close()
     }
-    if(evt.target.classList.contains('button_action_close')) {
-      this.close()
-    }
   }
 
   setEventListeners() {
-    this.#closeButton.addEventListener('click', this.close)
+    this.#closeButton.addEventListener('click', () => {
+      if(this.popup.classList.contains('popup_opened')) {
+        this.close()
+      }
+    })
     document.addEventListener('mousedown', this.#handleOverlayClose)
   }
 }
