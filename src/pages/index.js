@@ -35,7 +35,7 @@ const addPopup = new PopupWithForm({
   popupSelector: '.popup_type_add',
   handleFormSubmit: (data) => {
     const card = createCard(data)
-    cardList.addItem(card)
+    section.addItem(card)
     addPopup.close()
   }
 })
@@ -95,4 +95,8 @@ enableValidation(settings)
 
 api.getInitialCards().then((cards) => {
   section.renderItems(cards)
+})
+
+api.getUserInfo().then((data)=> {
+  userInfo.setUserInfo(data)
 })
