@@ -9,7 +9,7 @@ export default class Card {
   #cardImage
 
   constructor(data, template, { handleCardClick }) {
-    this.#name = data.title
+    this.#name = data.name
     this.#link = data.link
     this.#template = template
     this.#handleCardClick = handleCardClick

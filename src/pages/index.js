@@ -8,6 +8,15 @@ import Section from '../scripts/components/Section.js'
 import PopupWithImage from '../scripts/components/PopupWithImage.js'
 import PopupWithForm from '../scripts/components/PopupWithForm.js'
 import UserInfo from '../scripts/components/UserInfo.js'
+import Api from '../scripts/components/Api.js'
+
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-65',
+  headers: {
+    authorization: '65b7fcf6-b316-4d1e-9510-010044d65d75',
+    'Content-Type': 'application/json'
+  }
+})
 
 const userInfo = new UserInfo({
   nameSelector: profileName,
@@ -33,11 +42,10 @@ const addPopup = new PopupWithForm({
 
 const popupWithImage = new PopupWithImage('.popup_type_image')
 
-const cardList = new Section({
-  items: initialCards,
+const section = new Section({
   renderer: (item) => {
     const card = createCard(item)
-    cardList.addItem(card)
+    section.addItem(card)
   }
 }, cardsContainer)
 
@@ -85,4 +93,6 @@ popupWithImage.setEventListeners()
 
 enableValidation(settings)
 
-cardList.renderItems()
+api.getInitialCards().then((cards) => {
+  section.renderItems(cards)
+})

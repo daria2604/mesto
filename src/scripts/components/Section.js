@@ -9,14 +9,10 @@ export default class Section {
     this.#container = containerSelector
   }
 
-  renderItems() {
-    this.#items.forEach((item) => {
+  renderItems(items) {
+    items.forEach((item) => {
       this.#renderer(item)
     })
-  }
-
-  addInitialCards(element) {
-    this.#container.append(element)
   }
 
   addItem(element) {
