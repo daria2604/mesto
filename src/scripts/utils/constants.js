@@ -9,6 +9,7 @@ export const inputName = editForm.elements.name
 export const inputAbout = editForm.elements.about
 export const addButton = document.querySelector('.button_action_add')
 export const addForm = document.forms['addForm']
+export const addFormSubmitButton = addForm.querySelector('.popup__submit-button_type_add')
 export const avatarButton = document.querySelector('.button_action_edit-avatar')
 export const avatarForm = document.forms['avatarForm']
 export const formList = Array.from(document.querySelectorAll('.popup__form'))

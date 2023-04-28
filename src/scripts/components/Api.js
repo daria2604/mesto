@@ -50,5 +50,24 @@ export default class Api {
       return Promise.reject(`Ошибка: ${res.status}`)
     })
   }
+
+  addCard({ title, link }, userId) {
+    return fetch(this.#baseUrl + '/cards', {
+      method: 'POST',
+      headers: this.#headers,
+      body: JSON.stringify({
+        name: title,
+        link: link,
+        _id: userId
+      })
+    })
+    .then(res => {
+      if(res.ok) {
+        return res.json()
+      }
+
+      return Promise.reject(`Ошибка: ${res.status}`)
+    })
+  }
 }
 

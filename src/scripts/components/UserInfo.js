@@ -1,6 +1,7 @@
 export default class UserInfo {
   #name
   #about
+  #userId
   #userInfo
 
   constructor({ nameSelector, aboutSelector }) {
@@ -16,8 +17,16 @@ export default class UserInfo {
     return this.#userInfo
   }
 
+  getUserId() {
+    return this.#userId
+  }
+
   setUserInfo(data) {
     this.#name.textContent = data.name
     this.#about.textContent = data.about
+  }
+
+  setUserId({_id}) {
+    this.#userId = _id
   }
 }

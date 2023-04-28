@@ -1,7 +1,7 @@
 import './index.css'
 import { cardTemplate, cardsContainer, profileName,
 profileAbout, editButton, editFormSubmitButton, addButton, editForm, addForm,
-inputName, inputAbout, avatarButton, avatarForm, formList, formValidators } from '../scripts/utils/constants.js'
+inputName, inputAbout, avatarButton, avatarForm, addFormSubmitButton, formList, formValidators } from '../scripts/utils/constants.js'
 import { FormValidator, settings } from '../scripts/components/FormValidator.js'
 import Card from '../scripts/components/Card.js'
 import Section from '../scripts/components/Section.js'
@@ -29,7 +29,6 @@ const editPopup = new PopupWithForm({
     editFormSubmitButton.textContent = 'Сохранение...'
     api.updateUserInfo(value)
     .then((data) => {
-      console.log(data)
       userInfo.setUserInfo(data)
     })
     .then(() => {
@@ -46,10 +45,22 @@ const editPopup = new PopupWithForm({
 
 const addPopup = new PopupWithForm({
   popupSelector: '.popup_type_add',
-  handleFormSubmit: (data) => {
-    const card = createCard(data)
-    section.addItem(card)
-    addPopup.close()
+  handleFormSubmit: (value) => {
+    addFormSubmitButton.textContent = 'Сохранение...'
+    api.addCard(value, userInfo.getUserId())
+    .then((data) => {
+      const card = createCard(data)
+      section.addItem(card)
+    })
+    .then(() => {
+      addPopup.close()
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+    .finally(() => {
+      addFormSubmitButton.textContent = 'Сохранить'
+    })
   }
 })
 
