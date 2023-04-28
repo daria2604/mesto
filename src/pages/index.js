@@ -1,7 +1,7 @@
 import './index.css'
 import { cardTemplate, cardsContainer, profileName,
 profileAbout, editButton, editFormSubmitButton, addButton, editForm, addForm,
-inputName, inputAbout, formList, formValidators } from '../scripts/utils/constants.js'
+inputName, inputAbout, avatarButton, avatarForm, formList, formValidators } from '../scripts/utils/constants.js'
 import { FormValidator, settings } from '../scripts/components/FormValidator.js'
 import Card from '../scripts/components/Card.js'
 import Section from '../scripts/components/Section.js'
@@ -53,6 +53,13 @@ const addPopup = new PopupWithForm({
   }
 })
 
+const avatarPopup = new PopupWithForm({
+  popupSelector: '.popup_type_avatar',
+  handleFormSubmit: () => {
+
+  }
+})
+
 const popupWithImage = new PopupWithImage('.popup_type_image')
 
 const section = new Section({
@@ -100,8 +107,14 @@ addButton.addEventListener('click', () => {
   addPopup.open()
 })
 
+avatarButton.addEventListener('click', () => {
+  resetValidation(avatarForm)
+  avatarPopup.open()
+})
+
 editPopup.setEventListeners()
 addPopup.setEventListeners()
+avatarPopup.setEventListeners()
 popupWithImage.setEventListeners()
 
 enableValidation(settings)
