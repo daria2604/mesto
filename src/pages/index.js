@@ -1,6 +1,6 @@
 import './index.css'
-import { initialCards, cardTemplate, cardsContainer, profileName,
-profileAbout, editButton, addButton, editForm, addForm,
+import { cardTemplate, cardsContainer, profileName,
+profileAbout, editButton, editFormSubmitButton, addButton, editForm, addForm,
 inputName, inputAbout, formList, formValidators } from '../scripts/utils/constants.js'
 import { FormValidator, settings } from '../scripts/components/FormValidator.js'
 import Card from '../scripts/components/Card.js'
@@ -25,9 +25,22 @@ const userInfo = new UserInfo({
 
 const editPopup = new PopupWithForm({
   popupSelector: '.popup_type_edit',
-  handleFormSubmit: (data) => {
-  userInfo.setUserInfo(data)
-  editPopup.close()
+  handleFormSubmit: (value) => {
+    editFormSubmitButton.textContent = 'Сохранение...'
+    api.updateUserInfo(value)
+    .then((data) => {
+      console.log(data)
+      userInfo.setUserInfo(data)
+    })
+    .then(() => {
+      editPopup.close()
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+    .finally(() => {
+      editFormSubmitButton.textContent = 'Сохранить'
+    })
   }
 })
 
