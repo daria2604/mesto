@@ -1,7 +1,20 @@
 import './index.css'
-import { cardTemplate, cardsContainer, profileName,
-profileAbout, editButton, editFormSubmitButton, addButton, editForm, addForm,
-inputName, inputAbout, avatarButton, avatarForm, addFormSubmitButton, formList, formValidators } from '../scripts/utils/constants.js'
+import {
+  cardTemplate,
+  cardsContainer,
+  editButton,
+  editFormSubmitButton,
+  addButton,
+  editForm,
+  addForm,
+  inputName,
+  inputAbout,
+  avatarButton,
+  avatarForm,
+  avatarSubmitButton,
+  addFormSubmitButton,
+  formList,
+  formValidators } from '../scripts/utils/constants.js'
 import { FormValidator, settings } from '../scripts/components/FormValidator.js'
 import Card from '../scripts/components/Card.js'
 import Section from '../scripts/components/Section.js'
@@ -9,6 +22,7 @@ import PopupWithImage from '../scripts/components/PopupWithImage.js'
 import PopupWithForm from '../scripts/components/PopupWithForm.js'
 import UserInfo from '../scripts/components/UserInfo.js'
 import Api from '../scripts/components/Api.js'
+import PopupWithConfirmation from '../scripts/components/PopupWithConfirmation.js'
 
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-65',
@@ -18,9 +32,12 @@ const api = new Api({
   }
 })
 
+let userId
+
 const userInfo = new UserInfo({
-  nameSelector: profileName,
-  aboutSelector: profileAbout
+  nameSelector: '.profile__name',
+  aboutSelector: '.profile__about',
+  avatarSelector: '.profile__avatar'
 })
 
 const editPopup = new PopupWithForm({
@@ -34,7 +51,7 @@ const editPopup = new PopupWithForm({
     .then(() => {
       editPopup.close()
     })
-    .catch((err) => {
+    .catch((err)=> {
       console.log(err)
     })
     .finally(() => {
@@ -47,7 +64,7 @@ const addPopup = new PopupWithForm({
   popupSelector: '.popup_type_add',
   handleFormSubmit: (value) => {
     addFormSubmitButton.textContent = 'Сохранение...'
-    api.addCard(value, userInfo.getUserId())
+    api.addCard(value)
     .then((data) => {
       const card = createCard(data)
       section.addItem(card)
@@ -66,10 +83,25 @@ const addPopup = new PopupWithForm({
 
 const avatarPopup = new PopupWithForm({
   popupSelector: '.popup_type_avatar',
-  handleFormSubmit: () => {
-
+  handleFormSubmit: (data) => {
+    avatarSubmitButton.textContent = 'Сохранение...'
+    api.updateAvatar(data)
+    .then((avatar) => {
+      userInfo.setAvatar(avatar)
+    })
+    .then(() => {
+      avatarPopup.close()
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+    .finally(() => {
+      avatarSubmitButton.textContent = 'Сохранить'
+    })
   }
 })
+
+const deleteCardPopup = new PopupWithConfirmation('.popup_type_confirm')
 
 const popupWithImage = new PopupWithImage('.popup_type_image')
 
@@ -81,11 +113,27 @@ const section = new Section({
 }, cardsContainer)
 
 const createCard = (data) => {
-  const card = new Card(data, cardTemplate, {
+  const card = new Card(data, cardTemplate, userId, {
     handleCardClick: (name, link) => {
       popupWithImage.open(name, link)
+    },
+    handleDeleteClick: () => {
+      deleteCardPopup.open()
+      deleteCardPopup.handleConfirm(() => {
+        api.deleteCard(data._id)
+        .then(() => {
+          card.deleteCard()
+        })
+        .then(() => {
+          deleteCardPopup.close()
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+      })
     }
   })
+
   return card.generateCard()
 }
 
@@ -127,13 +175,17 @@ editPopup.setEventListeners()
 addPopup.setEventListeners()
 avatarPopup.setEventListeners()
 popupWithImage.setEventListeners()
+deleteCardPopup.setEventListeners()
 
 enableValidation(settings)
 
-api.getInitialCards().then((cards) => {
-  section.renderItems(cards)
-})
-
-api.getUserInfo().then((data)=> {
-  userInfo.setUserInfo(data)
-})
+api.getInitialInfo()
+  .then(([userData, cards]) => {
+    userInfo.setUserInfo(userData)
+    userId = userData._id
+    userInfo.setAvatar(userData)
+    section.renderItems(cards)
+  })
+  .catch((err) => {
+    console.log(err)
+  })

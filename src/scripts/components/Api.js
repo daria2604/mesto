@@ -7,6 +7,10 @@ export default class Api {
     this.#headers = options.headers
   }
 
+  getInitialInfo() {
+    return Promise.all([this.getUserInfo(), this.getInitialCards()])
+  }
+
   getInitialCards() {
     return fetch(this.#baseUrl + '/cards', {
       headers: this.#headers
@@ -51,15 +55,45 @@ export default class Api {
     })
   }
 
-  addCard({ title, link }, userId) {
+  addCard({ title, link }) {
     return fetch(this.#baseUrl + '/cards', {
       method: 'POST',
       headers: this.#headers,
       body: JSON.stringify({
         name: title,
-        link: link,
-        _id: userId
+        link: link
       })
+    })
+    .then(res => {
+      if(res.ok) {
+        return res.json()
+      }
+
+      return Promise.reject(`Ошибка: ${res.status}`)
+    })
+  }
+
+  updateAvatar(data) {
+    return fetch(this.#baseUrl + '/users/me/avatar', {
+      method: 'PATCH',
+      headers: this.#headers,
+      body: JSON.stringify({
+        avatar: data['avatar-link']
+      })
+    })
+    .then(res => {
+      if(res.ok) {
+        return res.json()
+      }
+
+      return Promise.reject(`Ошибка: ${res.status}`)
+    })
+  }
+
+  deleteCard(cardId) {
+    return fetch(this.#baseUrl + '/cards/' + cardId, {
+      method: 'DELETE',
+      headers: this.#headers
     })
     .then(res => {
       if(res.ok) {

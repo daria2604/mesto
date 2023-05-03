@@ -1,10 +1,8 @@
 export default class Section {
   #container
-  #items
   #renderer
 
-  constructor({ items, renderer }, containerSelector) {
-    this.#items = items
+  constructor({ renderer }, containerSelector) {
     this.#renderer = renderer
     this.#container = containerSelector
   }
