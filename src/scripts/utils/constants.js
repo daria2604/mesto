@@ -11,5 +11,6 @@ export const addFormSubmitButton = addForm.querySelector('.popup__submit-button_
 export const avatarButton = document.querySelector('.button_action_edit-avatar')
 export const avatarForm = document.forms['avatarForm']
 export const avatarSubmitButton = document.querySelector('.popup__submit-button_type_avatar')
+export const confirmButton = document.querySelector('.popup__submit-button_type_confirm')
 export const formList = Array.from(document.querySelectorAll('.popup__form'))
 export const formValidators = {}

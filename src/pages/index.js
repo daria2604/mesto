@@ -13,6 +13,7 @@ import {
   avatarForm,
   avatarSubmitButton,
   addFormSubmitButton,
+  confirmButton,
   formList,
   formValidators } from '../scripts/utils/constants.js'
 import { FormValidator, settings } from '../scripts/components/FormValidator.js'
@@ -119,6 +120,7 @@ const createCard = (data) => {
     },
     handleDeleteClick: () => {
       deleteCardPopup.open()
+      confirmButton.textContent = 'Да'
       deleteCardPopup.handleConfirm(() => {
         api.deleteCard(data._id)
         .then(() => {
@@ -129,6 +131,9 @@ const createCard = (data) => {
         })
         .catch((err) => {
           console.log(err)
+        })
+        .finally(() => {
+          confirmButton.textContent = 'Удаление...'
         })
       })
     }
