@@ -1,18 +1,19 @@
 export default class Card {
   #element
+  #template
   #name
   #link
   #likes
-  #template
   #userId
   #ownerId
+  #likesCounter
   #handleCardClick
   #handleDeleteClick
   #handleLikeClick
   #likeButton
   #deleteButton
   #cardImage
-  #likesCounter
+
 
   constructor(data, template, userId, { handleCardClick, handleDeleteClick, handleLikeClick }) {
     this.#name = data.name
@@ -44,6 +45,14 @@ export default class Card {
 
   removeLike() {
     this.#likeButton.classList.remove('button__like_active')
+  }
+
+  #likeCard() {
+    if(this.isLiked()) {
+      this.setLike()
+    } else {
+      this.removeLike()
+    }
   }
 
   isLiked() {
@@ -85,6 +94,7 @@ export default class Card {
       this.#deleteButton.remove()
     }
 
+    this.#likeCard()
     this.#setEventListeners()
 
     return this.#element
