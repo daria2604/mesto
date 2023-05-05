@@ -6,11 +6,11 @@
 **В проекте используется:**
 
 * БЭМ
-* Адаптивная верстка
+* Адаптивная вёрстка
 * JavaScript
 * Live валидация форм
 * ООП
-* REST API
+* API
 * Webpack
 
 [Ссылка на GitHub Pages](https://daria2604.github.io/mesto/)
