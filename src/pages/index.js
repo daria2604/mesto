@@ -210,7 +210,7 @@ api.getInitialInfo()
     userInfo.setUserInfo(userData)
     userId = userData._id
     userInfo.setAvatar(userData)
-    section.renderItems(cards)
+    section.renderItems(cards.reverse())
   })
   .catch((err) => {
     console.log(err)
