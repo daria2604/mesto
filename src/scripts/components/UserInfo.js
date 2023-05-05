@@ -2,7 +2,6 @@ export default class UserInfo {
   #name
   #about
   #avatar
-  #userId
   #userInfo
 
   constructor({ nameSelector, aboutSelector, avatarSelector }) {
