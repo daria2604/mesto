@@ -118,11 +118,11 @@ const createCard = (data) => {
     handleCardClick: (name, link) => {
       popupWithImage.open(name, link)
     },
-    handleDeleteClick: () => {
+    handleDeleteClick: (cardId) => {
       deleteCardPopup.open()
       confirmButton.textContent = 'Да'
       deleteCardPopup.handleConfirm(() => {
-        api.deleteCard(data._id)
+        api.deleteCard(cardId)
         .then(() => {
           card.deleteCard()
         })
@@ -136,6 +136,27 @@ const createCard = (data) => {
           confirmButton.textContent = 'Удаление...'
         })
       })
+    },
+    handleLikeClick: (cardId) => {
+      if(card.isLiked()) {
+        api.unlikeCard(cardId)
+        .then((data) => {
+          card.removeLike()
+          card.getLikesCounter(data)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+      } else {
+        api.likeCard(cardId)
+        .then((data) => {
+          card.setLike()
+          card.getLikesCounter(data)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+      }
     }
   })
 
