@@ -180,8 +180,7 @@ function resetValidation(form) {
 
 editButton.addEventListener('click', () => {
   const user = userInfo.getUserInfo()
-  inputName.value = user.name
-  inputAbout.value = user.about
+  editPopup.setInputValues(user)
 
   resetValidation(editForm)
   editPopup.open()
