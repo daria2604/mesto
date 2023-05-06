@@ -3,17 +3,12 @@ import {
   cardTemplate,
   cardsContainer,
   editButton,
-  editFormSubmitButton,
   addButton,
+  avatarButton,
+  confirmButton,
   editForm,
   addForm,
-  inputName,
-  inputAbout,
-  avatarButton,
   avatarForm,
-  avatarSubmitButton,
-  addFormSubmitButton,
-  confirmButton,
   formList,
   formValidators } from '../scripts/utils/constants.js'
 import { FormValidator, settings } from '../scripts/components/FormValidator.js'
@@ -44,19 +39,12 @@ const userInfo = new UserInfo({
 const editPopup = new PopupWithForm({
   popupSelector: '.popup_type_edit',
   handleFormSubmit: (value) => {
-    editFormSubmitButton.textContent = 'Сохранение...'
-    api.updateUserInfo(value)
+    return api.updateUserInfo(value)
     .then((data) => {
       userInfo.setUserInfo(data)
     })
-    .then(() => {
-      editPopup.close()
-    })
     .catch((err)=> {
       console.log(err)
-    })
-    .finally(() => {
-      editFormSubmitButton.textContent = 'Сохранить'
     })
   }
 })
@@ -64,20 +52,13 @@ const editPopup = new PopupWithForm({
 const addPopup = new PopupWithForm({
   popupSelector: '.popup_type_add',
   handleFormSubmit: (value) => {
-    addFormSubmitButton.textContent = 'Сохранение...'
-    api.addCard(value)
+    return api.addCard(value)
     .then((data) => {
       const card = createCard(data)
       section.addItem(card)
     })
-    .then(() => {
-      addPopup.close()
-    })
     .catch((err) => {
       console.log(err)
-    })
-    .finally(() => {
-      addFormSubmitButton.textContent = 'Сохранить'
     })
   }
 })
@@ -85,19 +66,12 @@ const addPopup = new PopupWithForm({
 const avatarPopup = new PopupWithForm({
   popupSelector: '.popup_type_avatar',
   handleFormSubmit: (data) => {
-    avatarSubmitButton.textContent = 'Сохранение...'
-    api.updateAvatar(data)
+    return api.updateAvatar(data)
     .then((avatar) => {
       userInfo.setAvatar(avatar)
     })
-    .then(() => {
-      avatarPopup.close()
-    })
     .catch((err) => {
       console.log(err)
-    })
-    .finally(() => {
-      avatarSubmitButton.textContent = 'Сохранить'
     })
   }
 })
